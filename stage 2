@@ -1,0 +1,142 @@
+# Stage 2 — Project Planning
+
+## 1. Project Overview
+
+The project is a web platform designed to help students find other students to work with on projects.
+
+The main idea is to connect students who have different but complementary skills. For example, a student who knows how to code could find another student who is good at design, video editing, communication, or project management.
+
+The goal is to make it easier for students to create projects together, find suitable teammates, and develop their skills through collaboration.
+
+The project will be developed progressively, starting with the project idea and planning, followed by technical documentation and MVP development.
+
+---
+
+## 2. High-Level Plan
+
+The project is divided into five main stages.
+
+### Stage 1 — Idea Development
+
+**Status:** Completed
+
+During this stage, the project idea was defined and the main problem to solve was identified.
+
+The project concept, target users, and main objectives were established.
+
+**Main deliverables:**
+
+* Project idea
+* Problem identification
+* Target users
+* Project objectives
+* Initial project scope
+
+---
+
+### Stage 2 — Project Planning
+
+**Status:** In progress
+
+This stage focuses on defining how the project will be developed and organizing the different phases of the project.
+
+The main development stages, milestones, and expected deliverables are defined.
+
+**Main deliverables:**
+
+* High-level project plan
+* Project timeline
+* Project milestones
+* Definition of the main project phases
+
+---
+
+### Stage 3 — Technical Documentation
+
+**Status:** Planned
+
+During this stage, the technical structure of the project will be defined before development begins.
+
+The technologies, architecture, database structure, APIs, and main technical components will be documented.
+
+**Main deliverables:**
+
+* Technical architecture
+* Database design
+* API structure
+* Technology choices
+* Technical documentation
+
+---
+
+### Stage 4 — MVP Development
+
+**Status:** Planned
+
+During this stage, the first functional version of the platform will be developed.
+
+The MVP will focus on the most important features needed to demonstrate the main idea of the project.
+
+**Main deliverables:**
+
+* User interface
+* User authentication
+* Student profiles
+* Project creation
+* Project discovery
+* Student/project matching
+* Basic collaboration features
+* Functional MVP
+
+---
+
+### Stage 5 — Project Closure
+
+**Status:** Planned
+
+The final stage will focus on testing, fixing remaining problems, documenting the project, and preparing the final presentation.
+
+The completed MVP will be reviewed to identify possible improvements and future features.
+
+**Main deliverables:**
+
+* Final testing
+* Bug fixes
+* Final documentation
+* Project presentation
+* Project review
+* Future improvements
+
+---
+
+## 3. Project Timeline
+
+| Stage                             | Period            | Main Objective                         | Deliverable                    |
+| --------------------------------- | ----------------- | -------------------------------------- | ------------------------------ |
+| Stage 1 — Idea Development        | Completed         | Define the project idea and objectives | Project concept                |
+| Stage 2 — Project Planning        | Current           | Organize the project phases            | Project plan and timeline      |
+| Stage 3 — Technical Documentation | Next              | Define the technical structure         | Technical documentation        |
+| Stage 4 — MVP Development         | Development phase | Build the first functional version     | Functional MVP                 |
+| Stage 5 — Project Closure         | Final phase       | Test, document and present the project | Final project and presentation |
+
+---
+
+## 4. Main Milestones
+
+The main milestones of the project are:
+
+1. **Project idea validated** — Stage 1 completed.
+2. **Project plan completed** — Stage 2 completed.
+3. **Technical architecture and documentation completed** — Stage 3 completed.
+4. **First functional MVP completed** — Stage 4 completed.
+5. **Testing and final presentation completed** — Stage 5 completed.
+
+---
+
+## 5. Expected Outcome
+
+At the end of the project, the objective is to have a functional MVP of a student collaboration platform.
+
+The platform should allow students to present their skills, discover projects, find students with complementary skills, and start collaborating on projects.
+
+The MVP will provide a foundation that can be improved in the future with additional features such as better matching, notifications, messaging, and other collaboration tools.
