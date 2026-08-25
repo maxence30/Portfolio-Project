@@ -1,0 +1,377 @@
+Rapport de l'étape 1 — Plateforme de collaboration étudiante
+1. Formation de l'équipe
+1.1 Présentation de l'équipe
+Le projet est développé individuellement, bien que le format de projet original soit conçu pour une équipe.
+
+Le projet repose sur l'idée de créer une plateforme web qui met en relation des étudiants souhaitant collaborer sur des projets et possédant des compétences complémentaires.
+
+Comme le projet est développé individuellement, les différentes responsabilités normalement réparties entre les membres de l'équipe sont gérées par le même développeur.
+
+1.2 Rôles et responsabilités
+Rôle	Responsabilités
+Chef de projet	Organisation du projet, planification, gestion des tâches et suivi des progrès
+Développeur front-end	Développement de l'interface utilisateur à l'aide de HTML, CSS, JavaScript natif, Tailwind CSS et DaisyUI.
+Développeur backend	Développement de la logique backend, des API, de l'authentification et de la logique métier en JavaScript
+Développeur de bases de données	Conception et gestion des structures de données de l'application
+Assurance qualité / Documentation	Tests, validation, identification des bogues et documentation technique
+1.3 Pile technologique
+La pile technologique frontend requise pour le projet est la suivante :
+
+HTML
+CSS
+JavaScript pur
+Tailwind CSS
+DaisyUI
+Le backend sera développé en JavaScript.
+
+Le projet utilisera une architecture web afin que les étudiants puissent accéder à la plateforme via un navigateur web.
+
+1.4 Communication et collaboration
+Le projet étant développé individuellement, la communication entre les membres de l'équipe n'est pas applicable. Cependant, l'organisation du projet sera gérée par un système de contrôle de version et de documentation.
+
+Le processus de développement s'articulera autour des axes suivants :
+
+séparation claire des tâches ;
+examens réguliers des progrès ;
+Git pour le contrôle de version ;
+documentation de projet structurée ;
+effectuer des tests après la mise en œuvre des fonctionnalités importantes.
+1.5 Parties prenantes
+Les principaux acteurs concernés sont :
+
+Étudiants à la recherche de collaborateurs
+
+Ils utilisent la plateforme pour publier leurs projets et trouver des étudiants aux compétences complémentaires.
+
+Étudiants à la recherche de projets
+
+Ils consultent les projets disponibles et postulent à ceux qui correspondent à leurs compétences.
+
+Créateurs du projet
+
+Ils rédigent les annonces de projets, définissent les compétences recherchées, examinent les candidatures et choisissent les collaborateurs.
+
+Administrateur de plateforme
+
+L'administrateur gère les utilisateurs, modère les annonces de projets, traite les signalements et peut suspendre les comptes problématiques.
+
+Propriétaire du projet / contexte éducatif
+
+Ce projet est conçu comme un projet de portfolio académique. Son objectif principal est de démontrer la capacité à concevoir et à développer une application web complète à partir d'un cas d'utilisation réel.
+
+2. Remue-méninges et évaluation des idées
+2.1 Identification du problème
+L'idée de départ provient d'un problème courant rencontré par les étudiants travaillant sur des projets personnels ou académiques.
+
+Un étudiant peut avoir une bonne idée de projet et de solides compétences dans un domaine, mais manquer des compétences requises dans d'autres domaines.
+
+Par exemple, un étudiant peut savoir programmer un jeu vidéo mais ne pas savoir comment :
+
+créer des modèles 3D ;
+concevoir les mécanismes du jeu ;
+écrire une histoire ;
+créer de la musique ou des effets sonores.
+De même, un rappeur peut avoir des idées musicales mais ne pas posséder les compétences nécessaires pour produire un instrumental.
+
+Le processus de réflexion collective s'est donc concentré sur la recherche d'un projet qui pourrait aider les étudiants à collaborer et à combiner leurs compétences.
+
+2.2 Idées envisagées
+Plusieurs pistes possibles ont été envisagées lors de la phase de brainstorming.
+
+Idée 1 — Plateforme de collaboration étudiante
+Une plateforme web où les étudiants peuvent publier des projets et trouver d'autres étudiants possédant les compétences dont ils ont besoin.
+
+Exemple:
+
+Un étudiant qui développe un jeu vidéo peut rechercher un concepteur de jeux, un artiste 3D, un musicien ou un écrivain.
+
+Avantages :
+
+résout un problème concret ;
+utile pour différents types d'étudiants ;
+peut prendre en charge de nombreux types de projets ;
+présente des défis techniques importants ;
+peut évoluer avec des fonctionnalités supplémentaires.
+Défis :
+
+nécessite une authentification ;
+nécessite la gestion des utilisateurs et des projets ;
+nécessite un système pour les applications et la communication ;
+nécessite de la modération.
+Idée 2 — Plateforme de gestion de projets étudiants
+Une plateforme dédiée à aider les étudiants à organiser leurs projets en cours.
+
+Les fonctionnalités possibles incluraient les tâches, les échéances, le suivi des progrès et les membres du projet.
+
+Avantages :
+
+relativement facile à comprendre ;
+techniquement faisable ;
+utile pour les projets étudiants.
+Inconvénients :
+
+Il existe déjà de nombreuses solutions de gestion de projet ;
+moins axé sur le problème de la recherche de collaborateurs ;
+moins original que l'idée sélectionnée.
+Idée 3 — Plateforme de compétences/portfolios étudiants
+Une plateforme où les étudiants créent des profils et présentent leurs compétences, leurs projets et leurs portfolios.
+
+Avantages :
+
+utile pour les étudiants ;
+relativement simple à développer ;
+permet aux élèves de présenter leur travail.
+Inconvénients :
+
+semblables aux plateformes de réseautage professionnel existantes ;
+ne résout pas directement le problème de la recherche de collaborateurs pour un projet spécifique.
+Idée 4 — Plateforme d'apprentissage et de ressources pour les étudiants
+Une plateforme où les étudiants peuvent partager des tutoriels, des ressources et du matériel pédagogique.
+
+Avantages :
+
+utile pour les étudiants ;
+audience potentiellement importante ;
+Fonctionnalités de base relativement simples.
+Inconvénients :
+
+De nombreuses plateformes existantes proposent déjà des services similaires ;
+La modération des contenus pourrait devenir complexe ;
+moins axé sur la collaboration.
+2.3 Critères d'évaluation
+Les idées ont été évaluées selon les critères suivants :
+
+Faisabilité : Le projet peut-il être réalisé de manière réaliste avec le temps et les compétences techniques disponibles ?
+Impact : Ce projet résout-il un problème important ?
+Intérêt technique : Permet-il au développeur de démontrer différentes compétences techniques ?
+Évolutivité : Le projet peut-il évoluer avec des fonctionnalités supplémentaires ?
+Originalité : Cette idée apporte-t-elle quelque chose de différent des solutions existantes courantes ?
+Valeur du portefeuille : Le projet démontre-t-il des compétences de développement utiles ?
+La plateforme de collaboration étudiante a été sélectionnée car elle offrait le meilleur équilibre entre ces critères.
+
+3. Décision et perfectionnement
+3.1 MVP sélectionné
+Le MVP sélectionné est une plateforme web permettant de mettre en relation des étudiants souhaitant collaborer sur des projets .
+
+La plateforme permet à un étudiant de publier un projet, d'en expliquer les exigences et de préciser les compétences recherchées.
+
+D'autres étudiants peuvent découvrir ces projets et postuler s'ils possèdent les compétences requises.
+
+Le projet ne se limite pas au développement de logiciels.
+
+Les cas d'utilisation possibles incluent :
+
+développement de jeux vidéo ;
+production musicale ;
+réalisation;
+conception graphique;
+projets artistiques ;
+projets logiciels ;
+projets audiovisuels ;
+projets éducatifs.
+3.2 Problème que le MVP résout
+Les étudiants ont souvent des idées de projets, mais ne peuvent pas les réaliser seuls car il leur manque certaines compétences.
+
+Le problème ne réside donc pas nécessairement dans un manque de motivation ou d'idées, mais dans un manque d'accès à des personnes possédant des compétences complémentaires.
+
+La plateforme vise à faciliter la mise en relation des étudiants avec ces personnes.
+
+3.3 Solution proposée
+La plateforme offre un espace centralisé où les étudiants peuvent :
+
+créer un profil ;
+décrire leurs compétences ;
+publier un projet ;
+préciser les compétences dont ils ont besoin ;
+indiquer si le projet est payé ou non ;
+Précisez si la collaboration se fait à distance ou en présentiel ;
+préciser un emplacement si nécessaire ;
+recevoir les candidatures ;
+accepter ou refuser les candidatures ;
+communiquer avec d'autres utilisateurs ;
+Évaluer les collaborateurs après une collaboration.
+3.4 Utilisateurs cibles
+Créateur de projets étudiants
+Un étudiant qui a un projet et qui a besoin de compétences supplémentaires.
+
+Par exemple, un programmeur à la recherche d'un artiste 3D pour un jeu vidéo.
+
+Candidat étudiant
+Un étudiant qui souhaite participer à des projets et mettre ses compétences à profit.
+
+Par exemple, un producteur de musique à la recherche d'artistes avec lesquels collaborer.
+
+Administrateur
+Un utilisateur chargé de la modération et de l'administration de la plateforme.
+
+L'administrateur peut gérer les utilisateurs, modérer les annonces et traiter les rapports.
+
+Un utilisateur peut également agir à la fois en tant que créateur de projet et en tant que candidat, selon le projet.
+
+3.5 Type d'application
+Le MVP est une application web accessible via un navigateur web.
+
+L'interface utilisateur utilisera :
+
+HTML ;
+CSS;
+JavaScript pur ;
+Tailwind CSS ;
+DaisyUI.
+Le serveur utilisera JavaScript.
+
+3.6 Principales caractéristiques
+Authentification
+Les utilisateurs pourront :
+
+registre;
+se connecter;
+déconnexion ;
+accéder à leur profil.
+Profils des étudiants
+Les utilisateurs pourront fournir des informations telles que :
+
+nom;
+photo de profil ;
+description;
+compétences;
+expérience;
+portefeuille;
+notation.
+Annonces de projets
+Un projet peut contenir :
+
+titre;
+description;
+catégorie;
+compétences requises ;
+informations sur la rémunération ;
+collaboration à distance ou en présentiel ;
+ville;
+date;
+État d'avancement du projet.
+Applications
+Les étudiants peuvent postuler aux annonces de projets.
+
+Le créateur du projet peut :
+
+consulter les applications ;
+accepter une candidature ;
+rejeter une demande ;
+Envoyer un message de réponse.
+Messagerie
+Les utilisateurs pourront communiquer entre eux via la plateforme.
+
+Cela peut servir à discuter des exigences du projet et des modalités de collaboration.
+
+Système de notation
+Après une collaboration, les utilisateurs peuvent évaluer leurs collaborateurs à l'aide d'un système de notation, éventuellement accompagné d'un commentaire écrit.
+
+Administration
+Les administrateurs pourront :
+
+gérer les utilisateurs ;
+annonces modérées;
+gérer les rapports ;
+supprimer le contenu problématique ;
+Suspendre les comptes lorsque cela est nécessaire.
+4. Portée du projet
+4.1 Dans le périmètre
+Le projet comprendra :
+
+Inscription et connexion des étudiants ;
+profils d'utilisateurs ;
+compétences et expérience ;
+création de projet ;
+descriptions de projet ;
+compétences requises ;
+catégories de projets ;
+information à distance / en présentiel ;
+informations de localisation ;
+informations sur la rémunération ;
+recherche de projets ;
+candidatures de projet;
+Acceptation et rejet des candidatures ;
+communication entre utilisateurs ;
+évaluations des utilisateurs ;
+administration et modération de base.
+4.2 Hors du champ d'application
+Les fonctionnalités suivantes ne font pas partie du périmètre initial :
+
+traitement intégré des paiements ;
+applications mobiles natives ;
+vidéoconférence ;
+gestion complexe des contrats ;
+gestion financière avancée ;
+accords juridiques automatisés ;
+Un système de recrutement complet pour les entreprises professionnelles.
+Ces fonctionnalités pourraient éventuellement être envisagées dans les versions futures.
+
+5. Objectifs
+Objectif 1 — Faciliter la collaboration étudiante
+La plateforme devrait offrir aux étudiants un moyen simple de trouver des collaborateurs aux compétences complémentaires.
+
+Objectif 2 — Centraliser les opportunités de projets
+La plateforme devrait permettre aux étudiants de publier et de découvrir des opportunités de projets en un seul endroit.
+
+Objectif 3 — Créer un flux de travail de collaboration complet
+Le MVP doit permettre au processus de collaboration principal de se dérouler via la plateforme :
+
+Profil → Projet → Candidature → Acceptation/Refus → Communication → Collaboration → Évaluation
+
+Ces objectifs constituent une base claire pour évaluer si le MVP résout avec succès son problème initial.
+
+6. Risques et défis
+Risque 1 — Étendue excessive du projet
+La plateforme comprend plusieurs systèmes tels que l'authentification, les profils, les projets, les applications, la messagerie, les évaluations et l'administration.
+
+Atténuation:
+
+Privilégiez le flux de travail de collaboration principal et développez les fonctionnalités supplémentaires progressivement.
+
+Risque 2 — Authentification et sécurité des utilisateurs
+Les comptes utilisateurs et les informations privées nécessitent une authentification et une gestion des données sécurisées.
+
+Atténuation:
+
+Respectez les pratiques d'authentification et de sécurité établies et évitez de stocker des informations sensibles de manière non sécurisée.
+
+Risque 3 — Modération
+Les utilisateurs peuvent publier du contenu inapproprié ou trompeur.
+
+Atténuation:
+
+Mettre en œuvre des fonctionnalités de signalement et de modération et fournir aux administrateurs des outils pour gérer les contenus problématiques.
+
+Risque 4 — Complexité de la messagerie
+Un système de messagerie en temps réel ou avancé pourrait considérablement accroître la complexité du développement.
+
+Atténuation:
+
+Commencez par un système de messagerie simple et envisagez des fonctionnalités de communication plus avancées pour des améliorations futures.
+
+Risque 5 — Difficulté à trouver suffisamment d'utilisateurs
+Une plateforme de collaboration devient plus utile lorsqu'elle compte suffisamment d'utilisateurs actifs et de projets.
+
+Atténuation:
+
+La première version doit être axée sur les étudiants et les catégories de projets courantes telles que les logiciels, les jeux, la musique, l'art et les projets audiovisuels.
+
+7. Résumé
+Le MVP sélectionné est une plateforme web conçue pour mettre en relation les étudiants souhaitant collaborer sur des projets.
+
+Le principal problème identifié est que les étudiants peuvent posséder les compétences nécessaires pour réaliser une partie d'un projet, mais manquer d'autres compétences essentielles. Trouver des collaborateurs adéquats peut s'avérer difficile, surtout lorsque les compétences requises sont spécialisées.
+
+La plateforme remédie à ce problème en permettant aux étudiants de créer des profils, de décrire leurs compétences, de publier des annonces de projets et de préciser les compétences recherchées. Les autres étudiants peuvent ainsi découvrir les projets, y postuler et communiquer avec leurs créateurs.
+
+La plateforme peut prendre en charge de nombreux types de projets, notamment les jeux vidéo, la musique, les logiciels, le cinéma, le design et les projets artistiques.
+
+La principale valeur ajoutée de la plateforme réside donc dans la complémentarité des compétences et la collaboration entre étudiants, plutôt que dans la limitation du service à un seul domaine.
+
+Ce projet a été sélectionné car il associe un problème utilisateur concret à une solution techniquement intéressante. Il offre également l'opportunité de démontrer des compétences en développement front-end et back-end, authentification, gestion des données, API, interaction utilisateur, modération et tests logiciels.
+
+L’objectif à long terme est de créer un écosystème complet de collaboration étudiante, tandis que la version MVP initiale se concentrera sur le flux de travail essentiel :
+
+Créer un profil → publier ou découvrir un projet → trouver des compétences complémentaires → postuler → accepter ou refuser → communiquer → collaborer → évaluer.
+
+Cette approche offre un point de départ réaliste tout en laissant place à des améliorations futures telles que la mise en relation avancée, les notifications, les portefeuilles, les recommandations et des outils de collaboration supplémentaires.
