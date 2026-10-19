@@ -1,0 +1,29 @@
+{
+  "name": "portfolio-project",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/maxence30/Portfolio-Project.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/maxence30/Portfolio-Project/issues"
+  },
+  "homepage": "https://github.com/maxence30/Portfolio-Project#readme",
+  "dependencies": {
+    "bcryptjs": "^3.0.3",
+    "dotenv": "^18.0.8",
+    "mysql2": "^3.24.6"
+  }
+}
