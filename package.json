@@ -7,8 +7,9 @@
     "doc": "docs"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server.js"
+    "test": "npm run check && node test-permissions.js && node test-security.js && node test-features.js",
+    "start": "node server.js",
+    "check": "node --check server.js && node --check auth.js && node --check db.js && node --check extra-routes.js && node --check features-routes.js && node --check rate-limit.js && node --check test-permissions.js && node --check test-security.js && node --check test-features.js"
   },
   "repository": {
     "type": "git",
@@ -24,6 +25,7 @@
   "dependencies": {
     "bcryptjs": "^3.0.3",
     "dotenv": "^18.0.8",
+    "jsonwebtoken": "^9.0.3",
     "mysql2": "^3.24.6"
   }
 }

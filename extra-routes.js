@@ -1,16 +1,54 @@
 const db = require('./db');
+const auth = require('./auth');
 
 async function extraRoutes(req, res, send, readBody) {
     const path = new URL(req.url, 'http://localhost').pathname;
 
     const project = path.match(/^\/projects\/([0-9]+)$/);
 
-    if (project && req.method === 'PATCH') {
+    if (project && ['PATCH', 'DELETE'].includes(req.method)) {
+        const user = auth.requireAuth(req);
+        const projectId = Number(project[1]);
+
+        const [projects] = await db.query(
+            'SELECT user_id FROM projects WHERE id = ?',
+            [projectId]
+        );
+
+        if (!projects.length) {
+            return send(res, 404, { error: 'Projet introuvable' });
+        }
+
+        if (projects[0].user_id !== user.id) {
+            return send(res, 403, { error: 'Accès interdit' });
+        }
+
+        if (req.method === 'DELETE') {
+            const [result] = await db.query(
+                'DELETE FROM projects WHERE id = ? AND user_id = ?',
+                [projectId, user.id]
+            );
+
+            return send(res, result.affectedRows ? 200 : 404, {
+                message: result.affectedRows
+                    ? 'Projet supprimé'
+                    : 'Projet introuvable'
+            });
+        }
+
         const data = await readBody(req);
-        const allowed = ['title', 'description', 'category', 'city', 'status', 'remuneration', 'work_type'];
+        const allowed = [
+            'title', 'description', 'category', 'city',
+            'status', 'remuneration', 'work_type'
+        ];
+
+        if (!data || typeof data !== 'object' || Array.isArray(data)) {
+            return send(res, 400, { error: 'Données invalides' });
+        }
+
         const fields = Object.keys(data);
 
-        if (!fields.length || fields.some(field => !allowed.includes(field))) {
+        if (!fields.length || fields.some(f => !allowed.includes(f))) {
             return send(res, 400, { error: 'Champs invalides' });
         }
 
@@ -23,57 +61,83 @@ async function extraRoutes(req, res, send, readBody) {
         for (const field of fields) {
             const value = data[field];
 
-            if (typeof value !== 'string' ||
+            if (
+                typeof value !== 'string' ||
                 (enums[field] && !enums[field].includes(value)) ||
                 (field === 'title' && (!value.trim() || value.length > 150)) ||
                 (field === 'description' && !value.trim()) ||
-                (['category', 'city'].includes(field) && value.length > 100)) {
+                (['category', 'city'].includes(field) && value.length > 100)
+            ) {
                 return send(res, 400, { error: 'Valeur invalide' });
             }
         }
 
-        const sql = fields.map(field => `${field} = ?`).join(', ');
-        const values = fields.map(field => data[field]);
+        const sql = fields.map(f => `${f} = ?`).join(', ');
+        const values = fields.map(f => data[f]);
 
         const [result] = await db.query(
-            `UPDATE projects SET ${sql} WHERE id = ?`,
-            [...values, Number(project[1])]
+            `UPDATE projects SET ${sql} WHERE id = ? AND user_id = ?`,
+            [...values, projectId, user.id]
         );
 
         return send(res, result.affectedRows ? 200 : 404, {
-            message: result.affectedRows ? 'Projet modifié' : 'Projet introuvable'
-        });
-    }
-
-    if (project && req.method === 'DELETE') {
-        const [result] = await db.query(
-            'DELETE FROM projects WHERE id = ?',
-            [Number(project[1])]
-        );
-
-        return send(res, result.affectedRows ? 200 : 404, {
-            message: result.affectedRows ? 'Projet supprimé' : 'Projet introuvable'
+            message: result.affectedRows
+                ? 'Projet modifié'
+                : 'Projet introuvable'
         });
     }
 
     const application = path.match(/^\/applications\/([0-9]+)$/);
 
     if (application && req.method === 'PATCH') {
+        const user = auth.requireAuth(req);
+        const applicationId = Number(application[1]);
+
         const data = await readBody(req);
 
-        if (!['accepted', 'rejected'].includes(data.status)) {
+        if (
+            !data ||
+            typeof data !== 'object' ||
+            Array.isArray(data) ||
+            Object.keys(data).length !== 1 ||
+            !['accepted', 'rejected'].includes(data.status)
+        ) {
             return send(res, 400, { error: 'Statut invalide' });
         }
 
-        const [result] = await db.query(
-            'UPDATE applications SET status = ? WHERE id = ?',
-            [data.status, Number(application[1])]
+        const [applications] = await db.query(
+            `SELECT a.status, p.user_id
+             FROM applications a
+             JOIN projects p ON p.id = a.project_id
+             WHERE a.id = ?`,
+            [applicationId]
         );
 
-        return send(res, result.affectedRows ? 200 : 404, {
+        if (!applications.length) {
+            return send(res, 404, { error: 'Candidature introuvable' });
+        }
+
+        if (applications[0].user_id !== user.id) {
+            return send(res, 403, { error: 'Accès interdit' });
+        }
+
+        if (applications[0].status !== 'pending') {
+            return send(res, 409, {
+                error: 'Cette candidature a déjà été traitée'
+            });
+        }
+
+        const [result] = await db.query(
+            `UPDATE applications
+             SET status = ?
+             WHERE id = ? AND status = 'pending'`,
+            [data.status, applicationId]
+        );
+
+        return send(res, result.affectedRows ? 200 : 409, {
             message: result.affectedRows
                 ? 'Candidature mise à jour'
-                : 'Candidature introuvable'
+                : 'Cette candidature a déjà été traitée'
         });
     }
 
