@@ -33,11 +33,23 @@ async function readBody(req) {
         }
     }
     try {
-        return JSON.parse(body);
-    } catch {
-        const error = new Error('JSON invalide');
-        error.status = 400;
-        throw error;
+        const data = JSON.parse(body);
+
+        if (data === null ||
+            typeof data !== 'object' ||
+            Array.isArray(data)) {
+            const error = new Error('Un objet JSON est obligatoire');
+            error.status = 400;
+            throw error;
+        }
+
+        return data;
+    } catch (error) {
+        if (error.status) throw error;
+
+        const invalidJson = new Error('JSON invalide');
+        invalidJson.status = 400;
+        throw invalidJson;
     }
 }
 
@@ -210,7 +222,7 @@ const routes = {
             typeof d.title !== 'string' ||
             !d.title.trim() || d.title.length > 150 ||
             typeof d.description !== 'string' ||
-            !d.description.trim() ||
+            !d.description.trim() || d.description.length > 5000 ||
             (d.category != null &&
                 (typeof d.category !== 'string' || d.category.length > 100)) ||
             (d.city != null &&
@@ -251,7 +263,7 @@ const routes = {
         if (
             !Number.isInteger(d.project_id) || d.project_id <= 0 ||
             
-            (d.message != null && typeof d.message !== 'string')
+            (d.message != null && (typeof d.message !== 'string' || d.message.length > 2000))
         ) {
             return { status: 400, data: { error: 'Candidature invalide' } };
         }
@@ -298,7 +310,7 @@ const routes = {
         if (
             
             !Number.isInteger(d.receiver_id) || d.receiver_id <= 0 ||
-            typeof d.content !== 'string' || !d.content.trim() ||
+            typeof d.content !== 'string' || !d.content.trim() || d.content.length > 5000 ||
             (d.project_id != null &&
                 (!Number.isInteger(d.project_id) || d.project_id <= 0))
         ) {
@@ -374,7 +386,7 @@ const routes = {
             
             !Number.isInteger(d.reviewed_user_id) || d.reviewed_user_id <= 0 ||
             !Number.isInteger(d.score) || d.score < 1 || d.score > 5 ||
-            (d.comment != null && typeof d.comment !== 'string')
+            (d.comment != null && (typeof d.comment !== 'string' || d.comment.length > 2000))
         ) {
             return { status: 400, data: { error: 'Évaluation invalide' } };
         }
@@ -463,6 +475,27 @@ const server = http.createServer(async (req, res) => {
             return send(res, 403, {
                 error: 'Origine obligatoire pour une requête authentifiée'
             });
+        }
+    }
+
+    // Vérifie qu'un JWT valide correspond encore à un compte existant.
+    const tokenUser = auth.getUser(req);
+
+    if (tokenUser) {
+        try {
+            const [accounts] = await db.query(
+                'SELECT id FROM users WHERE id = ?',
+                [tokenUser.id]
+            );
+
+            if (!accounts.length) {
+                return send(res, 401, {
+                    error: 'Compte inexistant ou supprimé'
+                });
+            }
+        } catch (error) {
+            console.error('Erreur vérification compte :', error.message);
+            return send(res, 500, { error: 'Erreur serveur' });
         }
     }
 

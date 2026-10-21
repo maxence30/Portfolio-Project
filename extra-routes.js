@@ -65,7 +65,7 @@ async function extraRoutes(req, res, send, readBody) {
                 typeof value !== 'string' ||
                 (enums[field] && !enums[field].includes(value)) ||
                 (field === 'title' && (!value.trim() || value.length > 150)) ||
-                (field === 'description' && !value.trim()) ||
+                (field === 'description' && (!value.trim() || value.length > 5000)) ||
                 (['category', 'city'].includes(field) && value.length > 100)
             ) {
                 return send(res, 400, { error: 'Valeur invalide' });

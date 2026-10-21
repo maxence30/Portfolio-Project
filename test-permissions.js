@@ -69,6 +69,21 @@ async function main() {
 
     console.log('Projet créé :', projectId);
 
+    // Vérifie qu'une description trop longue est refusée
+    const tooLong = await request(
+        '/projects',
+        'POST',
+        {
+            title: 'Projet invalide',
+            description: 'A'.repeat(5001)
+        },
+        alice.cookie
+    );
+
+    assert.equal(tooLong.status, 400);
+    console.log('OK : description trop longue refusée');
+
+
     const [rows] = await require('./db').query(
         'SELECT user_id FROM projects WHERE id = ?',
         [projectId]
