@@ -1,0 +1,126 @@
+
+<!DOCTYPE html>
+<html lang="fr" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Démodé - Collaborons ensemble</title>
+
+    <!-- Tailwind CSS et DaisyUI (version de démarrage) -->
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@5" rel="stylesheet" type="text/css">
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="bg-base-100 text-base-content">
+
+    <!-- Navigation -->
+    <header class="navbar bg-base-100 shadow-sm px-6 lg:px-16">
+        <div class="navbar-start">
+            <a href="index.html" class="text-2xl font-extrabold text-primary">
+                Démodé.
+            </a>
+        </div>
+
+        <div class="navbar-center hidden lg:flex">
+            <ul class="menu menu-horizontal px-1 gap-4">
+                <li><a href="index.html">Accueil</a></li>
+                <li><a href="projects.html">Explorer les projets</a></li>
+                <li><a href="create-project.html">Publier un projet</a></li>
+            </ul>
+        </div>
+
+        <div class="navbar-end gap-2">
+            <a href="login.html" class="btn btn-ghost">Connexion</a>
+            <a href="register.html" class="btn btn-primary">Inscription</a>
+        </div>
+    </header>
+
+    <!-- Section principale -->
+    <main>
+        <section class="hero min-h-[75vh] bg-base-200">
+            <div class="hero-content text-center py-20">
+                <div class="max-w-3xl">
+                    <div class="badge badge-primary badge-outline mb-6 p-4">
+                        La plateforme de collaboration étudiante
+                    </div>
+
+                    <h1 class="text-4xl md:text-6xl font-extrabold leading-tight">
+                        Tes idées méritent
+                        <span class="text-primary">une équipe.</span>
+                    </h1>
+
+                    <p class="py-8 text-lg text-base-content/70">
+                        Trouve des étudiants passionnés, partage tes compétences
+                        et participe à des projets concrets. Développe ton expérience
+                        en collaborant avec d'autres talents.
+                    </p>
+
+                    <div class="flex flex-wrap justify-center gap-4">
+                        <a href="projects.html" class="btn btn-primary btn-lg">
+                            Découvrir les projets
+                        </a>
+                        <a href="register.html" class="btn btn-outline btn-lg">
+                            Rejoindre Démodé
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Fonctionnalités -->
+        <section class="max-w-7xl mx-auto px-6 py-20">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold">Comment ça marche ?</h2>
+                <p class="mt-3 text-base-content/60">
+                    Trois étapes pour commencer à collaborer.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <article class="card bg-base-200 shadow-sm">
+                    <div class="card-body">
+                        <span class="text-primary text-4xl font-bold">01</span>
+                        <h3 class="card-title mt-4">Crée ton profil</h3>
+                        <p>Présente tes compétences et tes centres d'intérêt.</p>
+                    </div>
+                </article>
+
+                <article class="card bg-base-200 shadow-sm">
+                    <div class="card-body">
+                        <span class="text-primary text-4xl font-bold">02</span>
+                        <h3 class="card-title mt-4">Explore les projets</h3>
+                        <p>Découvre des projets qui correspondent à tes envies.</p>
+                    </div>
+                </article>
+
+                <article class="card bg-base-200 shadow-sm">
+                    <div class="card-body">
+                        <span class="text-primary text-4xl font-bold">03</span>
+                        <h3 class="card-title mt-4">Collabore</h3>
+                        <p>Candidate et travaille avec d'autres étudiants.</p>
+                    </div>
+                </article>
+            </div>
+        </section>
+
+        <!-- Appel à l'action -->
+        <section class="bg-primary text-primary-content py-20 px-6 text-center">
+            <h2 class="text-3xl font-bold mb-4">
+                Prêt à lancer ton prochain projet ?
+            </h2>
+            <p class="mb-8">Rejoins la communauté Démodé dès maintenant.</p>
+            <a href="register.html" class="btn btn-neutral btn-lg">
+                Créer mon compte
+            </a>
+        </section>
+    </main>
+
+    <!-- Pied de page -->
+    <footer class="footer footer-center bg-base-300 text-base-content p-8">
+        <p>© 2026 Démodé — Plateforme de collaboration étudiante</p>
+    </footer>
+
+    <script src="js/app.js"></script>
+</body>
+</html>
