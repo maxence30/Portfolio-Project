@@ -1,0 +1,46 @@
+
+<!DOCTYPE html>
+<html lang="fr" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Détails du projet</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@5"
+          rel="stylesheet" type="text/css">
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body class="bg-base-200 min-h-screen">
+
+    <header class="navbar bg-base-100 shadow-sm px-6 lg:px-16">
+        <div class="navbar-start">
+            <a href="index.html" class="text-xl font-bold text-primary">
+                Accueil
+            </a>
+        </div>
+
+        <div class="navbar-end">
+            <a href="projects.html" class="btn btn-outline">
+                Retour aux projets
+            </a>
+        </div>
+    </header>
+
+    <main class="max-w-4xl mx-auto px-6 py-12">
+
+        <div id="projectDetails" class="card bg-base-100 shadow-lg">
+            <div class="card-body">
+                <p>Chargement du projet...</p>
+            </div>
+        </div>
+
+        <p id="applicationMessage" role="status"
+           aria-live="polite" class="mt-4 text-center"></p>
+
+    </main>
+
+    <script src="js/project.js"></script>
+</body>
+</html>

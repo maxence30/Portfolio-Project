@@ -1,0 +1,50 @@
+
+<!DOCTYPE html>
+<html lang="fr" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Explorer les projets</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@5" rel="stylesheet" type="text/css">
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="bg-base-200 min-h-screen">
+
+    <header class="navbar bg-base-100 shadow-sm px-6 lg:px-16">
+        <div class="navbar-start">
+            <a href="index.html" class="text-2xl font-bold text-primary">
+                Accueil
+            </a>
+        </div>
+
+        <div class="navbar-end gap-3">
+            <a href="create-project.html" class="btn btn-primary">
+                Publier un projet
+            </a>
+            <a href="profile.html" class="btn btn-outline">
+                Mon profil
+            </a>
+        </div>
+    </header>
+
+    <main class="max-w-7xl mx-auto px-6 py-12">
+        <div class="mb-10">
+            <h1 class="text-4xl font-bold mb-3">
+                Explorer les projets
+            </h1>
+            <p class="text-base-content/60">
+                Découvre les projets proposés par la communauté.
+            </p>
+        </div>
+
+        <div id="projectsList"
+             class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <p>Chargement des projets...</p>
+        </div>
+    </main>
+
+    <script src="js/projects.js"></script>
+</body>
+</html>

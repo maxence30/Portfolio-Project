@@ -1,0 +1,204 @@
+
+<!DOCTYPE html>
+<html lang="fr" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Publier un projet - Skillink</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@5"
+          rel="stylesheet" type="text/css">
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body class="bg-base-200 min-h-screen">
+
+    <header class="navbar bg-base-100 shadow-sm px-6 lg:px-16">
+        <div class="navbar-start">
+            <a href="index.html" class="text-2xl font-bold text-primary">
+                Skillink
+            </a>
+        </div>
+
+        <div class="navbar-end gap-3">
+            <a href="projects.html" class="btn btn-ghost">
+                Voir les projets
+            </a>
+            <a href="profile.html" class="btn btn-outline">
+                Mon profil
+            </a>
+        </div>
+    </header>
+
+    <main class="max-w-2xl mx-auto px-6 py-12">
+
+        <div class="card bg-base-100 shadow-lg">
+            <div class="card-body">
+
+                <h1 class="text-3xl font-bold text-center">
+                    Publier un projet
+                </h1>
+
+                <p class="text-center text-base-content/70 mb-6">
+                    Présente ton idée et trouve des collaborateurs.
+                </p>
+
+                <form id="createProjectForm" class="space-y-5">
+
+                    <!-- TITRE -->
+                    <div>
+                        <label for="title" class="label">
+                            Titre du projet
+                        </label>
+                        <input
+                            type="text"
+                            id="title"
+                            class="input input-bordered w-full"
+                            placeholder="Ex : Création d'un jeu vidéo"
+                            maxlength="150"
+                            required
+                        >
+                    </div>
+
+                    <!-- DESCRIPTION -->
+                    <div>
+                        <label for="description" class="label">
+                            Description
+                        </label>
+                        <textarea
+                            id="description"
+                            class="textarea textarea-bordered w-full h-32"
+                            placeholder="Décris ton projet et les compétences recherchées..."
+                            required
+                        ></textarea>
+                    </div>
+
+                    <!-- CATÉGORIE -->
+                    <div>
+                        <label for="category" class="label">
+                            Catégorie
+                        </label>
+
+                        <select
+                            id="category"
+                            class="select select-bordered w-full"
+                            required
+                        >
+                            <option value="" disabled selected>
+                                Choisir une catégorie
+                            </option>
+                            <option value="Informatique">Informatique</option>
+                            <option value="Jeu video">Jeu vidéo</option>
+                            <option value="Design">Design</option>
+                            <option value="Marketing">Marketing</option>
+                            <option value="Audiovisuel">Audiovisuel</option>
+                            <option value="Autre">Autre</option>
+                        </select>
+
+                        <div id="customCategoryContainer" class="hidden mt-3">
+                            <label for="customCategory" class="label">
+                                Précisez la catégorie
+                            </label>
+                            <input
+                                type="text"
+                                id="customCategory"
+                                class="input input-bordered w-full"
+                                placeholder="Ex : Photographie, Sport, Musique..."
+                                maxlength="100"
+                            >
+                        </div>
+                    </div>
+
+                    <!-- RÉMUNÉRATION -->
+                    <div>
+                        <label for="remuneration" class="label">
+                            Rémunération
+                        </label>
+
+                        <select
+                            id="remuneration"
+                            class="select select-bordered w-full"
+                            required
+                        >
+                            <option value="unpaid">Non rémunéré</option>
+                            <option value="paid">Rémunéré</option>
+                            <option value="volunteer">Bénévolat</option>
+                        </select>
+
+                        <div id="salaryContainer" class="hidden mt-3">
+                            <label for="salary" class="label">
+                                Budget proposé (€)
+                            </label>
+
+                            <input
+                                type="number"
+                                id="salary"
+                                class="input input-bordered w-full"
+                                placeholder="Ex : 500"
+                                min="0"
+                                step="0.01"
+                            >
+
+                            <p class="text-sm text-base-content/60 mt-1">
+                                Montant indicatif, à définir avec le collaborateur.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- MODE DE TRAVAIL -->
+                    <div>
+                        <label for="work_type" class="label">
+                            Mode de travail
+                        </label>
+
+                        <select
+                            id="work_type"
+                            class="select select-bordered w-full"
+                            required
+                        >
+                            <option value="remote">À distance</option>
+                            <option value="onsite">Sur place</option>
+                            <option value="hybrid">Hybride</option>
+                        </select>
+                    </div>
+
+                    <!-- VILLE -->
+                    <div>
+                        <label for="city" class="label">
+                            Ville (facultatif)
+                        </label>
+
+                        <input
+                            type="text"
+                            id="city"
+                            class="input input-bordered w-full"
+                            placeholder="Ex : Dijon"
+                        >
+                    </div>
+
+                    <!-- BOUTON -->
+                    <button
+                        type="submit"
+                        id="submitButton"
+                        class="btn btn-primary w-full"
+                    >
+                        Publier mon projet
+                    </button>
+
+                    <p
+                        id="message"
+                        role="status"
+                        aria-live="polite"
+                        class="text-center"
+                    ></p>
+
+                </form>
+            </div>
+        </div>
+
+    </main>
+
+    <script src="js/create-project.js"></script>
+</body>
+</html>

@@ -218,7 +218,6 @@ const routes = {
         const d = await readBody(req);
 
         if (
-            
             typeof d.title !== 'string' ||
             !d.title.trim() || d.title.length > 150 ||
             typeof d.description !== 'string' ||
@@ -230,15 +229,25 @@ const routes = {
             (d.remuneration != null &&
                 !['paid', 'unpaid', 'volunteer'].includes(d.remuneration)) ||
             (d.work_type != null &&
-                !['remote', 'onsite', 'hybrid'].includes(d.work_type))
+                !['remote', 'onsite', 'hybrid'].includes(d.work_type)) ||
+            (d.salary != null &&
+                (typeof d.salary !== 'number' ||
+                 !Number.isFinite(d.salary) ||
+                 d.salary < 0 ||
+                 d.salary > 99999999.99 ||
+                 Math.abs(d.salary * 100 -
+                     Math.round(d.salary * 100)) > 0.000001 ||
+                 d.remuneration !== 'paid')) ||
+            (d.remuneration === 'paid' && d.salary == null)
         ) {
             return { status: 400, data: { error: 'Projet invalide' } };
         }
 
         const [result] = await db.query(
             `INSERT INTO projects
-             (user_id, title, description, category, remuneration, work_type, city)
-             VALUES (?, ?, ?, ?, ?, ?, ?)`,
+             (user_id, title, description, category,
+              remuneration, work_type, city, salary)
+             VALUES (?, ?, ?, ?, ?, ?, ?, ?)`,
             [
                 currentUser.id,
                 d.title.trim(),
@@ -246,7 +255,8 @@ const routes = {
                 d.category || null,
                 d.remuneration || 'unpaid',
                 d.work_type || 'remote',
-                d.city || null
+                d.city || null,
+                d.remuneration === 'paid' ? d.salary : null
             ]
         );
 
