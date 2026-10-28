@@ -4,43 +4,83 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Détails du projet</title>
-
-    <link href="https://cdn.jsdelivr.net/npm/daisyui@5"
-          rel="stylesheet" type="text/css">
+    <title>Détails du projet - Skillink</title>
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@5" rel="stylesheet" type="text/css">
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     <link rel="stylesheet" href="css/style.css">
 </head>
+<body class="min-h-screen bg-base-200">
 
-<body class="bg-base-200 min-h-screen">
-
-    <header class="navbar bg-base-100 shadow-sm px-6 lg:px-16">
+    <header class="navbar bg-base-100 shadow-sm px-4 lg:px-10">
         <div class="navbar-start">
-            <a href="index.html" class="text-xl font-bold text-primary">
-                Accueil
+            <a href="index.html" class="text-2xl font-extrabold text-primary">
+                Skillink
             </a>
         </div>
 
-        <div class="navbar-end">
-            <a href="projects.html" class="btn btn-outline">
-                Retour aux projets
-            </a>
+        <div class="navbar-end gap-1 flex-wrap">
+            <a href="projects.html" class="btn btn-ghost btn-sm">Projets</a>
+            <a href="applications.html" class="btn btn-ghost btn-sm">Candidatures</a>
+            <a href="messages.html" class="btn btn-ghost btn-sm">💬 Messagerie</a>
+            <a href="profile.html" class="btn btn-outline btn-sm">Mon profil</a>
         </div>
     </header>
 
-    <main class="max-w-4xl mx-auto px-6 py-12">
+    <main class="max-w-6xl mx-auto px-4 md:px-8 py-10 md:py-14">
 
-        <div id="projectDetails" class="card bg-base-100 shadow-lg">
-            <div class="card-body">
-                <p>Chargement du projet...</p>
+        <a href="projects.html" class="btn btn-ghost mb-6">
+            ← Retour aux projets
+        </a>
+
+        <div id="projectDetails"
+             class="card bg-base-100 shadow-xl border border-base-300
+                    rounded-3xl overflow-hidden">
+            <div class="card-body p-8 md:p-12">
+                <p class="text-lg">Chargement du projet...</p>
             </div>
         </div>
 
-        <p id="applicationMessage" role="status"
-           aria-live="polite" class="mt-4 text-center"></p>
+        <p id="applicationMessage"
+           role="status"
+           aria-live="polite"
+           class="mt-6 text-center text-lg"></p>
+
+        <section id="applicationSection"
+                 class="hidden card bg-base-100 shadow-xl
+                        border border-base-300 rounded-3xl mt-8">
+            <div class="card-body p-8 md:p-12">
+                <h2 class="text-2xl md:text-3xl font-bold mb-3">
+                    Postuler à ce projet
+                </h2>
+
+                <p class="text-base md:text-lg text-base-content/70 mb-4">
+                    Présente-toi au créateur du projet.
+                </p>
+
+                <form id="applicationForm" class="space-y-5">
+                    <div>
+                        <label for="motivation" class="label text-base font-medium">
+                            Message de motivation
+                        </label>
+                        <textarea
+                            id="motivation"
+                            class="textarea textarea-bordered w-full text-base min-h-40"
+                            maxlength="2000"
+                            placeholder="Explique pourquoi tu souhaites rejoindre ce projet..."></textarea>
+                    </div>
+
+                    <button id="applyButton"
+                            type="submit"
+                            class="btn btn-primary btn-lg">
+                        Envoyer ma candidature
+                    </button>
+                </form>
+            </div>
+        </section>
 
     </main>
 
     <script src="js/project.js"></script>
+    <script src="js/navigation.js"></script>
 </body>
 </html>

@@ -1,0 +1,121 @@
+
+<!DOCTYPE html>
+<html lang="fr" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Messagerie - Skillink</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@5"
+          rel="stylesheet" type="text/css">
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body class="min-h-screen bg-base-200">
+
+    <nav class="navbar bg-base-100 shadow-sm px-4 md:px-8">
+        <div class="flex-1">
+            <a href="index.html" class="text-2xl font-bold text-primary">
+                Skillink
+            </a>
+        </div>
+        <div class="flex gap-2">
+            <a href="projects.html" class="btn btn-ghost btn-sm">
+                Projets
+            </a>
+            <a href="applications.html" class="btn btn-ghost btn-sm">
+                Candidatures
+            </a>
+            <a href="profile.html" class="btn btn-outline btn-sm">
+                Mon profil
+            </a>
+        </div>
+    </nav>
+
+    <main class="max-w-6xl mx-auto px-4 py-8">
+        <h1 class="text-3xl font-bold mb-2">Messagerie</h1>
+        <p class="text-base-content/70 mb-6">
+            Discute avec les membres de tes projets.
+        </p>
+
+        <div id="errorMessage"
+             class="hidden alert alert-error mb-4"></div>
+
+        <p id="loading" class="text-center py-8">
+            Chargement des conversations...
+        </p>
+
+        <div id="messagingContent"
+             class="hidden grid grid-cols-1 md:grid-cols-3 gap-5">
+
+            <section class="card bg-base-100 shadow-md">
+                <div class="card-body p-4">
+                    <div class="flex items-center justify-between gap-2">
+                        <h2 class="font-bold text-xl">Conversations</h2>
+                        <button id="refreshButton"
+                                class="btn btn-ghost btn-sm"
+                                type="button">
+                            Actualiser
+                        </button>
+                    </div>
+
+                    <div id="conversationList"
+                         class="space-y-2 mt-3"></div>
+
+                    <p id="noConversations"
+                       class="hidden text-sm text-base-content/60 mt-3">
+                        Aucune conversation disponible.
+                        Une candidature doit d'abord être acceptée.
+                    </p>
+                </div>
+            </section>
+
+            <section class="card bg-base-100 shadow-md md:col-span-2">
+                <div class="card-body p-4 md:p-6">
+
+                    <div class="border-b border-base-300 pb-4">
+                        <h2 id="conversationTitle"
+                            class="text-xl font-bold">
+                            Sélectionne une conversation
+                        </h2>
+                        <p id="conversationSubtitle"
+                           class="text-sm text-base-content/60 mt-1"></p>
+                    </div>
+
+                    <div id="messageList"
+                         class="h-96 overflow-y-auto flex flex-col
+                                gap-3 py-4">
+                        <p class="text-center text-base-content/60">
+                            Tes messages apparaîtront ici.
+                        </p>
+                    </div>
+
+                    <form id="messageForm" class="space-y-3">
+                        <textarea id="messageInput"
+                                  class="textarea textarea-bordered w-full"
+                                  placeholder="Écris ton message..."
+                                  maxlength="5000" rows="3"
+                                  disabled required></textarea>
+
+                        <div class="flex justify-between items-center">
+                            <p id="sendMessageStatus"
+                               class="text-sm" aria-live="polite"></p>
+
+                            <button id="sendButton"
+                                    type="submit"
+                                    class="btn btn-primary"
+                                    disabled>
+                                Envoyer
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <script src="js/messages.js"></script>
+    <script src="js/navigation.js"></script>
+</body>
+</html>

@@ -19,3 +19,201 @@ a, button {
     transform: translateY(-10px);
     box-shadow: 0 12px 25px rgba(0, 0, 0, 0.15);
 }
+/* Amélioration de l'affichage des fiches projets */
+body:has(#projectDetails) #projectDetails {
+    width: 100%;
+    max-width: 1100px;
+    margin: 2rem auto;
+}
+
+body:has(#projectDetails) #projectDetails .card {
+    width: 100%;
+}
+
+body:has(#projectDetails) #projectDetails .card-body {
+    padding: 2.5rem;
+    gap: 1.25rem;
+}
+
+body:has(#projectDetails) #projectDetails h1,
+body:has(#projectDetails) #projectDetails h2,
+body:has(#projectDetails) #projectDetails .card-title {
+    font-size: clamp(1.7rem, 3vw, 2.5rem);
+    line-height: 1.25;
+}
+
+body:has(#projectDetails) #projectDetails p {
+    font-size: 1.1rem;
+    line-height: 1.8;
+    overflow-wrap: anywhere;
+}
+
+body:has(#projectDetails) #projectDetails .badge {
+    font-size: 0.9rem;
+    padding: 0.8rem;
+}
+
+
+/* SKILLINK RESPONSIVE V1 */
+
+/* Protection contre les débordements */
+html, body {
+    max-width: 100%;
+    overflow-x: clip;
+}
+
+*, *::before, *::after {
+    box-sizing: border-box;
+}
+
+img, video, iframe {
+    max-width: 100%;
+}
+
+/* Navigation */
+.navbar {
+    gap: 0.75rem;
+}
+
+.navbar .navbar-end {
+    flex-wrap: wrap;
+    gap: 0.35rem;
+}
+
+/* Cartes et contenus */
+.card {
+    min-width: 0;
+}
+
+.card-body {
+    min-width: 0;
+}
+
+.card p,
+.card h1,
+.card h2,
+.card h3 {
+    overflow-wrap: anywhere;
+}
+
+/* Formulaires */
+input, select, textarea {
+    max-width: 100%;
+}
+
+textarea {
+    resize: vertical;
+}
+
+/* Tablettes */
+@media (max-width: 768px) {
+    .navbar {
+        flex-wrap: wrap;
+        padding: 0.75rem;
+    }
+
+    .navbar .navbar-start,
+    .navbar .navbar-end {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .navbar .navbar-end {
+        gap: 0.4rem;
+    }
+
+    .navbar .btn {
+        font-size: 0.8rem;
+    }
+
+    .card:hover {
+        transform: none;
+    }
+
+    .card-body {
+        padding: 1.25rem;
+    }
+
+    body:has(#projectDetails) #projectDetails {
+        margin: 1rem auto;
+    }
+
+    body:has(#projectDetails) #projectDetails .card-body {
+        padding: 1.25rem;
+    }
+
+    body:has(#projectDetails) #projectDetails p {
+        font-size: 1rem;
+        line-height: 1.6;
+    }
+
+    #messageList {
+        height: 320px;
+    }
+}
+
+/* Petits téléphones */
+@media (max-width: 480px) {
+    .navbar .btn {
+        font-size: 0.75rem;
+        padding-inline: 0.6rem;
+    }
+
+    .card-body {
+        padding: 1rem;
+    }
+
+    h1 {
+        overflow-wrap: anywhere;
+    }
+
+    #messageList {
+        height: 260px;
+    }
+}
+
+
+/* SKILLINK MOBILE NAV FIX */
+@media (max-width: 768px) {
+    .navbar {
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: stretch !important;
+        height: auto !important;
+        min-height: 0 !important;
+        gap: 0.75rem !important;
+        padding: 1rem !important;
+    }
+
+    .navbar > * {
+        min-width: 0;
+        max-width: 100%;
+    }
+
+    .navbar .navbar-start,
+    .navbar .navbar-center,
+    .navbar .navbar-end,
+    .navbar > .flex-1,
+    .navbar > .flex {
+        width: 100% !important;
+        max-width: 100% !important;
+        flex: 0 1 auto !important;
+        flex-wrap: wrap !important;
+        justify-content: center !important;
+        gap: 0.5rem !important;
+    }
+
+    .navbar a {
+        position: relative;
+        max-width: 100%;
+        white-space: normal;
+        text-align: center;
+    }
+
+    .navbar .btn {
+        height: auto;
+        min-height: 2.5rem;
+        padding: 0.5rem 0.75rem;
+        line-height: 1.3;
+    }
+}

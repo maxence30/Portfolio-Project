@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="fr" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Évaluations - Skillink</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@5" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="bg-base-200 min-h-screen">
+
+    <header class="navbar bg-base-100 shadow-sm px-6">
+        <div class="navbar-start">
+            <a href="index.html" class="text-2xl font-bold text-primary">
+                Skillink
+            </a>
+        </div>
+        <div class="navbar-end gap-2">
+            <a href="projects.html" class="btn btn-ghost">Projets</a>
+            <a href="profile.html" class="btn btn-ghost">Mon profil</a>
+        </div>
+    </header>
+
+    <main class="max-w-5xl mx-auto px-4 py-10 space-y-8">
+        <h1 class="text-4xl font-bold">Évaluations</h1>
+        <p class="text-base-content/70">
+            Donne ton avis après avoir terminé une collaboration.
+        </p>
+
+        <section class="card bg-base-100 shadow-md">
+            <div class="card-body">
+                <h2 class="card-title text-2xl">Évaluer un collaborateur</h2>
+
+                <form id="ratingForm" class="space-y-4">
+                    <label class="form-control block">
+                        <span class="label-text">Projet terminé</span>
+                        <select id="ratingProject" class="select select-bordered w-full" required>
+                            <option value="">Choisir un projet</option>
+                        </select>
+                    </label>
+
+                    <label class="form-control block">
+                        <span class="label-text">Collaborateur</span>
+                        <select id="ratingUser" class="select select-bordered w-full" required>
+                            <option value="">Choisir un collaborateur</option>
+                        </select>
+                    </label>
+
+                    <label class="form-control block">
+                        <span class="label-text">Note</span>
+                        <select id="ratingScore" class="select select-bordered w-full" required>
+                            <option value="5">★★★★★ — Excellent</option>
+                            <option value="4">★★★★☆ — Très bien</option>
+                            <option value="3">★★★☆☆ — Bien</option>
+                            <option value="2">★★☆☆☆ — Moyen</option>
+                            <option value="1">★☆☆☆☆ — Mauvais</option>
+                        </select>
+                    </label>
+
+                    <label class="form-control block">
+                        <span class="label-text">Commentaire</span>
+                        <textarea id="ratingComment"
+                            class="textarea textarea-bordered w-full"
+                            maxlength="2000"
+                            rows="4"
+                            placeholder="Comment s'est passée votre collaboration ?"></textarea>
+                    </label>
+
+                    <button type="submit" class="btn btn-primary">
+                        Publier mon évaluation
+                    </button>
+                </form>
+
+                <p id="ratingMessage" class="mt-3"></p>
+            </div>
+        </section>
+
+        <section class="card bg-base-100 shadow-md">
+            <div class="card-body">
+                <h2 class="card-title text-2xl">Avis des utilisateurs</h2>
+                <div id="ratingsList" class="space-y-4"></div>
+            </div>
+        </section>
+    </main>
+
+    <script src="js/navigation.js"></script>
+    <script src="js/evaluations.js"></script>
+</body>
+</html>

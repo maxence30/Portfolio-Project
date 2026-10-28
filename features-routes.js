@@ -87,26 +87,55 @@ async function featuresRoutes(req, readBody) {
         const data = await readBody(req);
 
         if (!validBody(data) ||
-            !validId(data.skill_id) ||
-            !['beginner', 'intermediate', 'advanced']
-                .includes(data.level)) {
+            !['beginner', 'intermediate', 'advanced'].includes(data.level)) {
             return response(400, { error: 'Compétence invalide' });
         }
 
-        const [skills] = await db.query(
-            'SELECT id FROM skills WHERE id = ?',
-            [data.skill_id]
-        );
+        let skillId;
 
-        if (!skills.length) {
-            return response(404, { error: 'Compétence introuvable' });
+        if (typeof data.skill_name === 'string') {
+            const name = data.skill_name.trim();
+
+            if (!name || name.length > 100) {
+                return response(400, { error: 'Nom invalide' });
+            }
+
+            const [existing] = await db.query(
+                'SELECT id FROM skills WHERE LOWER(name) = LOWER(?) LIMIT 1',
+                [name]
+            );
+
+            if (existing.length) {
+                skillId = existing[0].id;
+            } else {
+                const [result] = await db.query(
+                    'INSERT INTO skills (name) VALUES (?)',
+                    [name]
+                );
+                skillId = result.insertId;
+            }
+        } else {
+            if (!validId(data.skill_id)) {
+                return response(400, { error: 'Compétence invalide' });
+            }
+
+            const [skills] = await db.query(
+                'SELECT id FROM skills WHERE id = ?',
+                [data.skill_id]
+            );
+
+            if (!skills.length) {
+                return response(404, { error: 'Compétence introuvable' });
+            }
+
+            skillId = data.skill_id;
         }
 
         await db.query(
             `INSERT INTO user_skills (user_id, skill_id, level)
              VALUES (?, ?, ?)
              ON DUPLICATE KEY UPDATE level = ?`,
-            [user.id, data.skill_id, data.level, data.level]
+            [user.id, skillId, data.level, data.level]
         );
 
         return response(200, { message: 'Compétence enregistrée' });

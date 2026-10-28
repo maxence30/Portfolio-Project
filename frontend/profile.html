@@ -1,0 +1,186 @@
+
+<!DOCTYPE html>
+<html lang="fr" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mon profil - Skillink</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@5"
+          rel="stylesheet" type="text/css">
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body class="min-h-screen bg-base-200">
+
+    <nav class="navbar bg-base-100 shadow-sm px-4 md:px-8">
+        <div class="flex-1">
+            <a href="index.html" class="text-2xl font-bold text-primary">
+                Skillink
+            </a>
+        </div>
+        <div class="flex flex-wrap gap-2 justify-end">
+            <a href="index.html" class="btn btn-ghost btn-sm">Accueil</a>
+            <a href="projects.html" class="btn btn-ghost btn-sm">Projets</a>
+            <a href="create-project.html" class="btn btn-primary btn-sm">
+                Publier
+            </a>
+            <button id="logoutButton" class="btn btn-outline btn-sm">
+                Déconnexion
+            </button>
+        </div>
+    </nav>
+
+    <main class="max-w-5xl mx-auto px-4 py-10">
+
+        <h1 class="text-3xl font-bold mb-8">Mon profil</h1>
+
+        <p id="loading" class="text-center py-10">
+            Chargement du profil...
+        </p>
+
+        <div id="errorMessage"
+             class="hidden alert alert-error mb-5"></div>
+
+        <div id="profileContent" class="hidden space-y-8">
+
+            <!-- Informations personnelles -->
+            <section class="card bg-base-100 shadow-md">
+                <div class="card-body">
+                    <div class="flex items-center gap-4 mb-4">
+                        <div class="w-16 h-16 rounded-full bg-primary
+                                    text-primary-content flex items-center
+                                    justify-center text-3xl font-bold"
+                             id="avatarLetter">?</div>
+                        <div>
+                            <h2 id="displayUsername"
+                                class="text-2xl font-bold"></h2>
+                            <p id="displayEmail"
+                               class="text-base-content/60"></p>
+                        </div>
+                    </div>
+
+                    <h3 class="text-xl font-semibold mb-3">
+                        Modifier mes informations
+                    </h3>
+
+                    <form id="profileForm" class="space-y-4">
+
+                        <div>
+                            <label for="username" class="label">
+                                Pseudo
+                            </label>
+                            <input id="username" type="text"
+                                   class="input input-bordered w-full"
+                                   maxlength="50" required>
+                        </div>
+
+                        <div>
+                            <label for="description" class="label">
+                                Description
+                            </label>
+                            <textarea id="description"
+                                      class="textarea textarea-bordered w-full"
+                                      maxlength="5000" rows="3"></textarea>
+                        </div>
+
+                        <div>
+                            <label for="experience" class="label">
+                                Expérience
+                            </label>
+                            <textarea id="experience"
+                                      class="textarea textarea-bordered w-full"
+                                      maxlength="5000" rows="3"></textarea>
+                        </div>
+
+                        <div>
+                            <label for="portfolio" class="label">
+                                Lien vers mon portfolio
+                            </label>
+                            <input id="portfolio" type="url"
+                                   class="input input-bordered w-full"
+                                   maxlength="255"
+                                   placeholder="https://monsite.fr">
+                        </div>
+
+                        <button id="saveProfileButton"
+                                type="submit" class="btn btn-primary">
+                            Enregistrer les modifications
+                        </button>
+
+                        <p id="profileMessage" aria-live="polite"></p>
+                    </form>
+                </div>
+            </section>
+
+            <!-- Compétences -->
+            <section class="card bg-base-100 shadow-md">
+                <div class="card-body">
+                    <h2 class="text-2xl font-bold">Mes compétences</h2>
+
+                    <div id="skillsList" class="flex flex-wrap gap-3 my-4">
+                    </div>
+
+                    <p id="noSkills"
+                       class="hidden text-base-content/60">
+                        Aucune compétence ajoutée.
+                    </p>
+
+                    <form id="skillForm"
+                          class="grid grid-cols-1 md:grid-cols-3 gap-3">
+
+                        <select id="skillSelect"
+                                class="select select-bordered w-full"
+                                required>
+                            <option value="">Choisir une compétence</option>
+                        </select>
+<input id="customSkill" type="text"
+       class="input input-bordered w-full hidden"
+       placeholder="Ex : Photographie, Montage vidéo..."
+       maxlength="100">
+
+
+                        <select id="skillLevel"
+                                class="select select-bordered w-full">
+                            <option value="beginner">Débutant</option>
+                            <option value="intermediate">Intermédiaire</option>
+                            <option value="advanced">Avancé</option>
+                        </select>
+
+                        <button type="submit" id="addSkillButton"
+                                class="btn btn-primary">
+                            Ajouter / Modifier
+                        </button>
+                    </form>
+
+                    <p id="skillMessage" aria-live="polite"></p>
+                </div>
+            </section>
+
+            <!-- Projets -->
+            <section>
+                <div class="flex justify-between items-center mb-5">
+                    <h2 class="text-2xl font-bold">Mes projets</h2>
+                    <a href="create-project.html"
+                       class="btn btn-primary btn-sm">
+                        + Nouveau projet
+                    </a>
+                </div>
+
+                <div id="myProjects"
+                     class="grid grid-cols-1 md:grid-cols-2 gap-5">
+                </div>
+
+                <p id="noProjects"
+                   class="hidden text-base-content/60 text-center py-8">
+                    Tu n'as pas encore publié de projet.
+                </p>
+            </section>
+        </div>
+    </main>
+
+    <script src="js/profile.js"></script>
+    <script src="js/navigation.js"></script>
+</body>
+</html>

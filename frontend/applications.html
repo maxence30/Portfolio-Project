@@ -1,0 +1,82 @@
+
+<!DOCTYPE html>
+<html lang="fr" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mes candidatures - Skillink</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@5"
+          rel="stylesheet" type="text/css">
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body class="bg-base-200 min-h-screen">
+
+    <nav class="navbar bg-base-100 shadow-sm px-6">
+        <div class="flex-1">
+            <a href="index.html" class="text-2xl font-bold text-primary">
+                Skillink
+            </a>
+        </div>
+
+        <div class="flex gap-2">
+            <a href="projects.html" class="btn btn-ghost">
+                Projets
+            </a>
+            <a href="profile.html" class="btn btn-outline">
+                Mon profil
+            </a>
+        </div>
+    </nav>
+
+    <main class="max-w-5xl mx-auto px-4 py-10">
+
+        <h1 class="text-3xl font-bold mb-3">Mes candidatures</h1>
+        <p class="text-base-content/70 mb-8">
+            Consulte les candidatures envoyées et gère celles reçues
+            pour tes projets.
+        </p>
+
+        <p id="loading" class="text-center py-8">
+            Chargement des candidatures...
+        </p>
+
+        <div id="errorMessage"
+             class="hidden alert alert-error mb-6"></div>
+
+        <div id="content" class="hidden space-y-10">
+
+            <section>
+                <h2 class="text-2xl font-bold mb-5">
+                    Candidatures envoyées
+                </h2>
+                <div id="sentApplications"
+                     class="grid grid-cols-1 md:grid-cols-2 gap-5">
+                </div>
+                <p id="noSent" class="hidden text-base-content/60">
+                    Tu n'as envoyé aucune candidature.
+                </p>
+            </section>
+
+            <div class="divider"></div>
+
+            <section>
+                <h2 class="text-2xl font-bold mb-5">
+                    Candidatures reçues
+                </h2>
+                <div id="receivedApplications"
+                     class="grid grid-cols-1 md:grid-cols-2 gap-5">
+                </div>
+                <p id="noReceived" class="hidden text-base-content/60">
+                    Tu n'as reçu aucune candidature.
+                </p>
+            </section>
+        </div>
+    </main>
+
+    <script src="js/applications.js"></script>
+    <script src="js/navigation.js"></script>
+</body>
+</html>
