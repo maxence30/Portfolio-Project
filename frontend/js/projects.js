@@ -27,6 +27,9 @@ async function loadProjects() {
         projects.forEach((project) => {
             const card = document.createElement("article");
             card.className = "card bg-base-100 shadow-md";
+            card.dataset.category = project.category || "";
+            card.dataset.city = project.city || "";
+            card.dataset.workType = project.work_type || "";
 
             const body = document.createElement("div");
             body.className = "card-body";

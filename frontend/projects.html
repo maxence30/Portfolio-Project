@@ -152,9 +152,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
             const matches =
                 (!query || text.includes(query)) &&
-                (!cat || normalize(project?.category).includes(cat)) &&
-                (!town || normalize(project?.city).includes(town)) &&
-                (!type || project?.work_type === type);
+                (!cat || normalize(card.dataset.category).includes(cat)) &&
+                (!town || normalize(card.dataset.city).includes(town)) &&
+                (!type || card.dataset.workType === type);
 
             card.classList.toggle("hidden", !matches);
 

@@ -1,0 +1,191 @@
+
+<!DOCTYPE html>
+<html lang="fr" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Explorer les projets</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@5" rel="stylesheet" type="text/css">
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="bg-base-200 min-h-screen">
+
+    <header class="navbar bg-base-100 shadow-sm px-6 lg:px-16">
+        <div class="navbar-start">
+            <a href="index.html" class="text-2xl font-bold text-primary">
+                Accueil
+            </a>
+        </div>
+
+        <div class="navbar-end gap-3">
+            <a href="create-project.html" class="btn btn-primary">
+                Publier un projet
+            </a>
+            <a href="profile.html" class="btn btn-outline">
+                Mon profil
+            </a>
+        </div>
+    </header>
+
+    <main class="max-w-7xl mx-auto px-6 py-12">
+        <div class="mb-10">
+            <h1 class="text-4xl font-bold mb-3">
+                Explorer les projets
+            </h1>
+            <p class="text-base-content/60">
+                Découvre les projets proposés par la communauté.
+            </p>
+        </div>
+
+        <section id="skillinkFilters"
+    class="max-w-6xl mx-auto px-4 my-8">
+    <div class="card bg-base-100 shadow-md">
+        <div class="card-body">
+            <h2 class="card-title text-2xl">
+                Rechercher un projet
+            </h2>
+
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-3">
+                <input id="filterSearch"
+                    class="input input-bordered w-full"
+                    placeholder="Mot-clé...">
+
+                <input id="filterCategory"
+                    class="input input-bordered w-full"
+                    placeholder="Catégorie...">
+
+                <input id="filterCity"
+                    class="input input-bordered w-full"
+                    placeholder="Ville...">
+
+                <select id="filterWorkType"
+                    class="select select-bordered w-full">
+                    <option value="">Tous les types</option>
+                    <option value="remote">À distance</option>
+                    <option value="onsite">Sur place</option>
+                    <option value="hybrid">Hybride</option>
+                </select>
+            </div>
+
+            <div class="flex gap-3 mt-3">
+                <button id="applyFilters"
+                    class="btn btn-primary">
+                    Rechercher
+                </button>
+
+                <button id="resetFilters"
+                    class="btn btn-outline">
+                    Réinitialiser
+                </button>
+            </div>
+
+            <p id="filterResults"
+                class="text-sm opacity-70 mt-2"></p>
+        </div>
+    </div>
+</section>
+<div id="projectsList"
+             class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <p>Chargement des projets...</p>
+        </div>
+    </main>
+
+    
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+    const list = document.getElementById("projectsList");
+    const search = document.getElementById("filterSearch");
+    const category = document.getElementById("filterCategory");
+    const city = document.getElementById("filterCity");
+    const workType = document.getElementById("filterWorkType");
+    const results = document.getElementById("filterResults");
+
+    if (!list) return;
+
+    let cachedProjects = [];
+
+    const originalFetch = window.fetch.bind(window);
+
+    window.fetch = async (...args) => {
+        const response = await originalFetch(...args);
+        const url = String(args[0]);
+
+        if (/\/projects(?:\?|$)/.test(url) && response.ok) {
+            response.clone().json().then(data => {
+                if (Array.isArray(data)) {
+                    cachedProjects = data;
+                }
+            }).catch(() => {});
+        }
+
+        return response;
+    };
+
+    function normalize(value) {
+        return String(value || "")
+            .normalize("NFD")
+            .replace(/[\u0300-\u036f]/g, "")
+            .toLowerCase();
+    }
+
+    function applyFilters() {
+        const query = normalize(search.value.trim());
+        const cat = normalize(category.value.trim());
+        const town = normalize(city.value.trim());
+        const type = workType.value;
+
+        const cards = [...list.children];
+        let visible = 0;
+
+        cards.forEach(card => {
+            const text = normalize(card.textContent);
+            const link = card.querySelector('a[href*="project.html?id="]');
+            const id = link
+                ? new URL(link.href).searchParams.get("id")
+                : null;
+
+            const project = cachedProjects.find(
+                p => String(p.id) === String(id)
+            );
+
+            const matches =
+                (!query || text.includes(query)) &&
+                (!cat || normalize(project?.category).includes(cat)) &&
+                (!town || normalize(project?.city).includes(town)) &&
+                (!type || project?.work_type === type);
+
+            card.classList.toggle("hidden", !matches);
+
+            if (matches) visible++;
+        });
+
+        results.textContent = visible + " projet(s) affiché(s)";
+    }
+
+    document.getElementById("applyFilters")
+        .addEventListener("click", applyFilters);
+
+    document.getElementById("resetFilters")
+        .addEventListener("click", () => {
+            search.value = "";
+            category.value = "";
+            city.value = "";
+            workType.value = "";
+            applyFilters();
+        });
+
+    search.addEventListener("keydown", event => {
+        if (event.key === "Enter") applyFilters();
+    });
+});
+</script>
+
+<script src="js/projects.js"></script>
+    <script src="js/navigation.js"></script>
+
+
+
+</body>
+</html>
