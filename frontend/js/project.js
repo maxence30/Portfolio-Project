@@ -98,7 +98,50 @@ async function loadProject() {
             "text-lg md:text-xl leading-relaxed text-base-content/80 whitespace-pre-line";
         description.textContent = currentProject.description;
 
-        heading.append(title, description);
+        // skillinkPublicProfileLink
+        const authorRow = document.createElement("div");
+        authorRow.className =
+            "flex items-center flex-wrap gap-2 text-base-content/70";
+
+        const authorLabel = document.createElement("span");
+        authorLabel.textContent = "Publié par";
+
+        const authorLink = document.createElement("a");
+        authorLink.className =
+            "link link-primary font-semibold";
+
+        authorLink.href =
+            `user.html?id=${encodeURIComponent(currentProject.user_id)}`;
+
+        authorLink.textContent = "Voir le profil du créateur";
+
+        authorRow.append(authorLabel, authorLink);
+
+        try {
+            const usersResponse = await fetch(`${API_URL}/users`, {
+                credentials: "include"
+            });
+
+            if (usersResponse.ok) {
+                const users = await usersResponse.json();
+
+                const owner = users.find(
+                    user => Number(user.id) ===
+                        Number(currentProject.user_id)
+                );
+
+                if (owner) {
+                    authorLink.textContent = owner.username;
+                }
+            }
+        } catch (error) {
+            console.error(
+                "Impossible de charger le pseudo :",
+                error.message
+            );
+        }
+
+        heading.append(title, authorRow, description);
 
         const sectionTitle = document.createElement("h2");
         sectionTitle.className = "text-2xl font-bold";

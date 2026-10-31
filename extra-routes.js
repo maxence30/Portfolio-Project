@@ -4,6 +4,88 @@ const auth = require('./auth');
 async function extraRoutes(req, res, send, readBody) {
     const path = new URL(req.url, 'http://localhost').pathname;
 
+
+    // Messagerie collective par projet
+    const groupParts = path.split("/");
+    const groupId = Number(groupParts[2]);
+
+    const isGroupRoute =
+        groupParts.length === 3 &&
+        groupParts[1] === "group-messages" &&
+        /^[0-9]+$/.test(groupParts[2]) &&
+        Number.isSafeInteger(groupId) &&
+        groupId > 0;
+
+    if (isGroupRoute && ["GET", "POST"].includes(req.method)) {
+        const user = auth.requireAuth(req);
+        const projectId = groupId;
+
+        const [projects] = await db.query(
+            "SELECT user_id FROM projects WHERE id = ?",
+            [projectId]
+        );
+
+        if (!projects.length) {
+            return send(res, 404, { error: "Projet introuvable" });
+        }
+
+        const isOwner = Number(projects[0].user_id) === Number(user.id);
+
+        const [members] = await db.query(
+            `SELECT id FROM applications
+             WHERE project_id = ?
+               AND applicant_id = ?
+               AND status = 'accepted'
+             LIMIT 1`,
+            [projectId, user.id]
+        );
+
+        if (!isOwner && !members.length) {
+            return send(res, 403, {
+                error: "Accès au groupe non autorisé"
+            });
+        }
+
+        if (req.method === "GET") {
+            const [messages] = await db.query(
+                `SELECT gm.id, gm.project_id, gm.sender_id,
+                        gm.content, gm.created_at,
+                        u.username AS sender_username
+                 FROM group_messages gm
+                 JOIN users u ON u.id = gm.sender_id
+                 WHERE gm.project_id = ?
+                 ORDER BY gm.created_at ASC, gm.id ASC`,
+                [projectId]
+            );
+
+            return send(res, 200, messages);
+        }
+
+        const data = await readBody(req);
+
+        if (
+            !data ||
+            Object.keys(data).length !== 1 ||
+            typeof data.content !== "string" ||
+            !data.content.trim() ||
+            data.content.length > 5000
+        ) {
+            return send(res, 400, { error: "Message invalide" });
+        }
+
+        const [result] = await db.query(
+            `INSERT INTO group_messages
+             (project_id, sender_id, content)
+             VALUES (?, ?, ?)`,
+            [projectId, user.id, data.content.trim()]
+        );
+
+        return send(res, 201, {
+            message: "Message envoyé au groupe",
+            id: result.insertId
+        });
+    }
+
     const project = path.match(/^\/projects\/([0-9]+)$/);
 
     if (project && ['PATCH', 'DELETE'].includes(req.method)) {

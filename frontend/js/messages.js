@@ -18,6 +18,10 @@ let currentUser = null;
 let conversations = [];
 let messages = [];
 let selectedConversation = null;
+// skillinkGroupChat
+let groupMessages = [];
+let groupUsers = [];
+
 
 async function api(path, options = {}) {
     const response = await fetch(`${API_URL}${path}`, {
@@ -49,6 +53,17 @@ async function api(path, options = {}) {
     }
 
     return data;
+}
+
+
+// skillinkClickableProfiles
+function createProfileLink(userId, username) {
+    const link = document.createElement("a");
+    link.href = `user.html?id=${encodeURIComponent(userId)}`;
+    link.className = "link link-primary font-semibold";
+    link.textContent = username || `Utilisateur n°${userId}`;
+    link.title = "Consulter le profil public";
+    return link;
 }
 
 function showError(message) {
@@ -117,6 +132,38 @@ function createConversations(applications, projects, users) {
     return result;
 }
 
+function addGroupConversations(applications, projects, users) {
+    groupUsers = users;
+
+    const myId = Number(currentUser.id);
+
+    projects.forEach(project => {
+        const projectId = Number(project.id);
+        const ownerId = Number(project.user_id);
+
+        const members = applications.filter(application =>
+            Number(application.project_id) === projectId &&
+            application.status === "accepted"
+        );
+
+        const isMember = members.some(application =>
+            Number(application.applicant_id) === myId
+        );
+
+        if (!members.length || (ownerId !== myId && !isMember)) {
+            return;
+        }
+
+        conversations.push({
+            key: `group:${projectId}`,
+            projectId,
+            projectTitle: project.title,
+            isGroup: true,
+            otherUsername: `Groupe — ${project.title}`
+        });
+    });
+}
+
 function renderConversations() {
     conversationList.replaceChildren();
 
@@ -146,13 +193,51 @@ function renderConversations() {
 
         button.append(name, project);
 
+        if (!conversation.isGroup) {
+            const profileLink = createProfileLink(
+                conversation.otherUserId,
+                "Voir le profil"
+            );
+
+            profileLink.className =
+                "link text-sm underline block mt-2";
+
+            // Le lien doit rester indépendant du bouton de sélection.
+            const container = document.createElement("div");
+            container.className = "rounded-lg";
+
+            container.appendChild(button);
+
+            const linkRow = document.createElement("div");
+            linkRow.className = "px-3 pb-2";
+            linkRow.appendChild(profileLink);
+            container.appendChild(linkRow);
+
+            button.dataset.profileContainer = "true";
+            button._profileContainer = container;
+        }
+
         button.addEventListener("click", () => {
             selectedConversation = conversation;
             renderConversations();
-            renderMessages();
+
+            if (conversation.isGroup) {
+                api(`/group-messages/${conversation.projectId}`)
+                    .then(data => {
+                        if (selectedConversation?.key === conversation.key) {
+                            groupMessages = data;
+                            renderMessages();
+                        }
+                    })
+                    .catch(error => showError(error.message));
+            } else {
+                renderMessages();
+            }
         });
 
-        conversationList.appendChild(button);
+        conversationList.appendChild(
+            button._profileContainer || button
+        );
     });
 }
 
@@ -189,6 +274,69 @@ function renderMessages() {
     messageInput.disabled = false;
     sendButton.disabled = false;
 
+    if (selectedConversation.isGroup) {
+        conversationTitle.textContent = selectedConversation.otherUsername;
+        conversationSubtitle.textContent =
+            `Discussion collective du projet : ${selectedConversation.projectTitle}`;
+
+        messageInput.disabled = false;
+        sendButton.disabled = false;
+
+        const selectedMessages = groupMessages.filter(message =>
+            Number(message.project_id) === selectedConversation.projectId
+        );
+
+        selectedMessages.forEach(message => {
+            const isMine =
+                Number(message.sender_id) === Number(currentUser.id);
+
+            const wrapper = document.createElement("div");
+            wrapper.className = isMine
+                ? "chat chat-end"
+                : "chat chat-start";
+
+            const header = document.createElement("div");
+            header.className = "chat-header text-xs mb-1";
+            const sender = groupUsers.find(
+                user => Number(user.id) === Number(message.sender_id)
+            );
+
+            header.appendChild(
+                createProfileLink(
+                    message.sender_id,
+                    isMine
+                        ? "Moi"
+                        : (sender?.username ||
+                           message.sender_username ||
+                           `Utilisateur n°${message.sender_id}`)
+                )
+            );
+
+            const bubble = document.createElement("div");
+            bubble.className = isMine
+                ? "chat-bubble chat-bubble-primary whitespace-pre-wrap"
+                : "chat-bubble whitespace-pre-wrap";
+            bubble.textContent = message.content;
+
+            const footer = document.createElement("div");
+            footer.className = "chat-footer text-xs opacity-60";
+            footer.textContent = formatDate(message.created_at);
+
+            wrapper.append(header, bubble, footer);
+            messageList.appendChild(wrapper);
+        });
+
+        if (!selectedMessages.length) {
+            const empty = document.createElement("p");
+            empty.className = "text-center text-base-content/60 my-auto";
+            empty.textContent = "Aucun message dans ce groupe.";
+            messageList.appendChild(empty);
+        }
+
+        messageList.scrollTop = messageList.scrollHeight;
+        return;
+    }
+
     const conversationMessages = messages.filter(message => {
         const sameProject =
             Number(message.project_id) === selectedConversation.projectId;
@@ -222,9 +370,12 @@ function renderMessages() {
 
         const header = document.createElement("div");
         header.className = "chat-header text-xs mb-1";
-        header.textContent = isMine
-            ? "Moi"
-            : selectedConversation.otherUsername;
+        header.appendChild(
+            createProfileLink(
+                isMine ? currentUser.id : selectedConversation.otherUserId,
+                isMine ? "Moi" : selectedConversation.otherUsername
+            )
+        );
 
         const bubble = document.createElement("div");
         bubble.className = isMine
@@ -254,6 +405,18 @@ async function refreshMessages() {
     refreshingMessages = true;
 
     try {
+        if (selectedConversation?.isGroup) {
+            const latestGroup = await api(
+                `/group-messages/${selectedConversation.projectId}`
+            );
+
+            if (JSON.stringify(groupMessages) !== JSON.stringify(latestGroup)) {
+                groupMessages = latestGroup;
+                renderMessages();
+            }
+            return;
+        }
+
         const latest = await api("/messages");
         const unique = new Map();
 
@@ -291,6 +454,14 @@ async function loadMessaging() {
     messages = allMessages;
 
     conversations = createConversations(applications, projects, users);
+    addGroupConversations(applications, projects, users);
+
+    if (selectedConversation?.isGroup) {
+        groupMessages = await api(
+            `/group-messages/${selectedConversation.projectId}`
+        );
+    }
+
 
     const requestedProjectId = Number(
         new URLSearchParams(window.location.search).get("project")
@@ -337,6 +508,24 @@ messageForm.addEventListener("submit", async event => {
     sendMessageStatus.className = "text-sm text-base-content/60";
 
     try {
+        if (selectedConversation.isGroup) {
+            await api(
+                `/group-messages/${selectedConversation.projectId}`,
+                {
+                    method: "POST",
+                    body: JSON.stringify({ content })
+                }
+            );
+
+            messageInput.value = "";
+            sendMessageStatus.textContent = "Message envoyé !";
+            sendMessageStatus.className = "text-sm text-success";
+
+            sendingMessage = false;
+            await refreshMessages();
+            return;
+        }
+
         await api("/messages", {
             method: "POST",
             body: JSON.stringify({

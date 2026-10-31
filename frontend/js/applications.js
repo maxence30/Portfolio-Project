@@ -10,6 +10,7 @@ const receivedContainer = document.getElementById("receivedApplications");
 
 let currentUser = null;
 let projects = [];
+let publicUsers = [];
 
 async function api(path, options = {}) {
     const response = await fetch(`${API_URL}${path}`, {
@@ -33,6 +34,17 @@ async function api(path, options = {}) {
     }
 
     return data;
+}
+
+
+// skillinkClickableProfiles
+function createProfileLink(userId, username) {
+    const link = document.createElement("a");
+    link.href = `user.html?id=${encodeURIComponent(userId)}`;
+    link.className = "link link-primary font-semibold";
+    link.textContent = username || `Utilisateur n°${userId}`;
+    link.title = "Consulter le profil public";
+    return link;
 }
 
 function getProject(projectId) {
@@ -80,8 +92,19 @@ function createCard(application, received) {
     if (received) {
         const applicant = document.createElement("p");
         applicant.className = "font-medium";
-        applicant.textContent =
-            `Candidat n°${application.applicant_id}`;
+
+        const applicantUser = publicUsers.find(
+            user => Number(user.id) === Number(application.applicant_id)
+        );
+
+        applicant.append("Candidat : ");
+        applicant.appendChild(
+            createProfileLink(
+                application.applicant_id,
+                applicantUser?.username
+            )
+        );
+
         body.appendChild(applicant);
 
         if (application.status === "pending") {
@@ -107,6 +130,20 @@ function createCard(application, received) {
             actions.append(accept, reject);
             body.appendChild(actions);
         }
+    }
+
+    if (!received && project) {
+        const creator = publicUsers.find(
+            user => Number(user.id) === Number(project.user_id)
+        );
+
+        const creatorRow = document.createElement("p");
+        creatorRow.className = "font-medium";
+        creatorRow.append("Créateur : ");
+        creatorRow.appendChild(
+            createProfileLink(project.user_id, creator?.username)
+        );
+        body.appendChild(creatorRow);
     }
 
     if (project) {
@@ -182,6 +219,7 @@ async function initialize() {
     try {
         currentUser = await api("/me");
         projects = await api("/projects");
+        publicUsers = await api("/users");
 
         await loadApplications();
         content.classList.remove("hidden");

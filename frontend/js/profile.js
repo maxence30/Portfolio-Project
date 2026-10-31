@@ -166,8 +166,15 @@ function displayProjects(projects) {
         description.textContent = project.description;
 
         const status = document.createElement("span");
+        const statusLabels = {
+            open: "Ouvert",
+            in_progress: "En cours - candidatures closes",
+            completed: "Terminé",
+            cancelled: "Annulé"
+        };
+
         status.className = "badge badge-outline";
-        status.textContent = project.status;
+        status.textContent = statusLabels[project.status] || project.status;
 
         const link = document.createElement("a");
         link.href = `project.html?id=${encodeURIComponent(project.id)}`;
@@ -344,9 +351,56 @@ function displayProjects(projects) {
         deleteButton.textContent = "Supprimer";
 
         deleteButton.addEventListener("click", async () => {
-            const confirmed = confirm(
-                `Supprimer définitivement le projet "${project.title}" ?`
-            );
+            const confirmed = await new Promise(resolve => {
+                const dialog = document.createElement("dialog");
+                dialog.className = "modal";
+
+                const box = document.createElement("div");
+                box.className = "modal-box";
+
+                const title = document.createElement("h3");
+                title.className = "font-bold text-xl text-error";
+                title.textContent = "Supprimer ce projet ?";
+
+                const description = document.createElement("p");
+                description.className = "py-4";
+                description.textContent =
+                    `Le projet "${project.title}" sera supprimé définitivement.`;
+
+                const actions = document.createElement("div");
+                actions.className = "modal-action";
+
+                const cancel = document.createElement("button");
+                cancel.className = "btn btn-outline";
+                cancel.textContent = "Annuler";
+
+                const confirmDelete = document.createElement("button");
+                confirmDelete.className = "btn btn-error";
+                confirmDelete.textContent = "Supprimer définitivement";
+
+                let settled = false;
+
+                function finish(value) {
+                    if (settled) return;
+                    settled = true;
+                    dialog.close();
+                    dialog.remove();
+                    resolve(value);
+                }
+
+                cancel.addEventListener("click", () => finish(false));
+                confirmDelete.addEventListener("click", () => finish(true));
+                dialog.addEventListener("cancel", event => {
+                    event.preventDefault();
+                    finish(false);
+                });
+
+                actions.append(cancel, confirmDelete);
+                box.append(title, description, actions);
+                dialog.appendChild(box);
+                document.body.appendChild(dialog);
+                dialog.showModal();
+            });
 
             if (!confirmed) return;
 
@@ -367,7 +421,70 @@ function displayProjects(projects) {
             }
         });
 
+        async function changeProjectStatus(newStatus) {
+            const buttons = actions.querySelectorAll("button");
+            buttons.forEach(button => button.disabled = true);
+
+            try {
+                await api(`/projects/${project.id}`, {
+                    method: "PATCH",
+                    body: JSON.stringify({ status: newStatus })
+                });
+
+                const updatedProjects = await api("/projects");
+                displayProjects(updatedProjects);
+
+                showMessage(
+                    "profileMessage",
+                    "Statut du projet mis à jour !"
+                );
+            } catch (error) {
+                alert(error.message);
+                buttons.forEach(button => button.disabled = false);
+            }
+        }
+
+        function addStatusButton(label, newStatus, className) {
+            const button = document.createElement("button");
+            button.type = "button";
+            button.className = className;
+            button.textContent = label;
+
+            button.addEventListener("click", () => {
+                changeProjectStatus(newStatus);
+            });
+
+            actions.appendChild(button);
+        }
+
         actions.append(editButton, deleteButton);
+
+        if (project.status === "open") {
+            addStatusButton(
+                "Clore les candidatures",
+                "in_progress",
+                "btn btn-info btn-sm"
+            );
+
+            addStatusButton(
+                "Marquer comme terminé",
+                "completed",
+                "btn btn-success btn-sm"
+            );
+        } else if (project.status === "in_progress") {
+            addStatusButton(
+                "Rouvrir les candidatures",
+                "open",
+                "btn btn-info btn-sm"
+            );
+
+            addStatusButton(
+                "Marquer comme terminé",
+                "completed",
+                "btn btn-success btn-sm"
+            );
+        }
+
         body.appendChild(actions);
 
         card.appendChild(body);
