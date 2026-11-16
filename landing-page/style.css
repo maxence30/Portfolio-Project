@@ -1,0 +1,131 @@
+﻿html { scroll-behavior: smooth; }
+body { font-family: Arial, Helvetica, sans-serif; }
+*, *::before, *::after { box-sizing: border-box; }
+html, body { max-width: 100%; overflow-x: clip; }
+a, button { transition: all .2s ease; }
+
+.navbar { gap: .75rem; }
+.navbar .navbar-end { flex-wrap: wrap; }
+
+.card {
+  min-width: 0;
+  transition: transform .3s ease, box-shadow .3s ease;
+}
+.card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 12px 25px rgba(0,0,0,.15);
+}
+.card-body { min-width: 0; }
+.card p, .card h3 { overflow-wrap: anywhere; }
+
+.showcase {
+  border: 1px solid #e5e7eb;
+  background: white;
+  border-radius: 18px;
+  box-shadow: 0 24px 55px rgba(0,0,0,.10);
+  overflow: hidden;
+  transform: rotate(1deg);
+}
+.showcase-top {
+  background: #f3f4f6;
+  padding: 14px 20px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  color: #6b7280;
+  font-size: 12px;
+  border-bottom: 1px solid #e5e7eb;
+}
+.window-dots { display: flex; gap: 5px; }
+.window-dots i {
+  display: block; width: 9px; height: 9px;
+  border-radius: 50%; background: #d1d5db;
+}
+.window-dots i:first-child { background: #fca5a5; }
+.window-dots i:nth-child(2) { background: #fcd34d; }
+.window-dots i:nth-child(3) { background: #86efac; }
+.showcase-content { padding: 28px; }
+.mock-card {
+  background: #f8fafc;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  padding: 18px;
+  margin-bottom: 14px;
+}
+.mock-card p { color: #6b7280; font-size: 13px; margin: 9px 0; }
+.mock-tags { display: flex; gap: 8px; flex-wrap: wrap; }
+.mock-tags span {
+  background: #e0e7ff; color: #4338ca;
+  font-size: 11px; padding: 5px 9px; border-radius: 20px;
+}
+.mock-action {
+  text-align: center; color: #4f46e5;
+  font-weight: 700; font-size: 13px; padding-top: 10px;
+}
+.feature-number { color: #4f46e5; font-size: 32px; font-weight: 800; }
+
+.mini-interface {
+  background: white;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  height: 205px;
+  padding: 16px;
+  margin-top: 12px;
+  overflow: hidden;
+}
+.mini-heading { font-weight: 700; font-size: 13px; margin-bottom: 14px; }
+.mini-line { width: 48%; height: 7px; background: #e5e7eb; border-radius: 5px; margin-bottom: 8px; }
+.mini-line.long { width: 80%; }
+.mini-panel {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 9px; margin-top: 8px; background: #f3f4f6;
+  border-radius: 7px; font-size: 11px;
+}
+.mini-panel b { color: #15803d; }
+.mini-input {
+  border: 1px solid #e5e7eb; border-radius: 6px;
+  padding: 10px; font-size: 11px; color: #9ca3af; margin-top: 13px;
+}
+.mini-submit {
+  background: #4f46e5; color: white; border-radius: 6px;
+  text-align: center; padding: 9px; margin-top: 9px; font-size: 11px;
+}
+.chat-bubble-preview {
+  font-size: 11px; padding: 10px 12px;
+  border-radius: 12px; max-width: 85%; margin-bottom: 9px;
+}
+.chat-bubble-preview.left { background: #f3f4f6; }
+.chat-bubble-preview.right { background: #4f46e5; color: white; margin-left: auto; }
+
+.step-card {
+  background: white; border-radius: 15px;
+  padding: 32px 20px; border: 1px solid #e5e7eb;
+}
+.step-card span {
+  display: inline-flex; justify-content: center; align-items: center;
+  background: #4f46e5; color: white;
+  width: 50px; height: 50px; border-radius: 50%;
+  font-size: 22px; font-weight: 800; margin-bottom: 20px;
+}
+.step-card h3 { font-size: 20px; font-weight: 700; margin-bottom: 12px; }
+.step-card p { color: #6b7280; }
+
+@media (max-width: 768px) {
+  .navbar {
+    display: flex !important; flex-direction: column !important;
+    align-items: stretch !important; height: auto !important;
+    gap: .75rem !important; padding: 1rem !important;
+  }
+  .navbar .navbar-start, .navbar .navbar-center, .navbar .navbar-end {
+    width: 100% !important; justify-content: center !important;
+    flex-wrap: wrap !important;
+  }
+  .navbar a { white-space: normal; text-align: center; }
+  .card:hover { transform: none; }
+  .showcase { transform: none; }
+}
+@media (max-width: 480px) {
+  .showcase-content { padding: 16px; }
+  .card-body { padding: 1rem; }
+  h1 { overflow-wrap: anywhere; }
+}

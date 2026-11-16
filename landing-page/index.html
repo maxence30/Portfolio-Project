@@ -1,0 +1,213 @@
+﻿<!DOCTYPE html>
+<html lang="fr" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Skillink, la plateforme de collaboration entre étudiants.">
+<title>Skillink | Tes idées méritent une équipe</title>
+<link href="https://cdn.jsdelivr.net/npm/daisyui@5" rel="stylesheet" type="text/css">
+<script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+<link rel="stylesheet" href="style.css">
+</head>
+<body class="bg-base-100 text-base-content">
+
+<header class="navbar bg-base-100 shadow-sm px-6 lg:px-16">
+  <div class="navbar-start">
+    <a href="#accueil" class="text-2xl font-extrabold text-primary">Skillink<span class="text-base-content">.</span></a>
+  </div>
+  <nav class="navbar-center">
+    <ul class="menu menu-horizontal gap-2">
+      <li><a href="#fonctionnalites">Fonctionnalités</a></li>
+      <li><a href="#comment">Comment ça marche</a></li>
+      <li><a href="#apropos">À propos</a></li>
+    </ul>
+  </nav>
+  <div class="navbar-end">
+    <a href="../frontend/index.html" class="btn btn-primary">Accéder au site</a>
+  </div>
+</header>
+
+<main>
+<section id="accueil" class="bg-base-200 px-6 py-20">
+  <div class="max-w-7xl mx-auto grid lg:grid-cols-2 gap-14 items-center">
+    <div>
+      <div class="badge badge-primary badge-outline mb-7 p-4">La collaboration étudiante, simplifiée</div>
+      <h1 class="text-5xl md:text-6xl font-extrabold leading-tight">
+        Tes idées méritent <span class="text-primary">une équipe.</span>
+      </h1>
+      <p class="text-lg text-base-content/70 mt-7 mb-9 leading-relaxed">
+        Tu as une idée mais il te manque des compétences ? Tu veux participer
+        à des projets concrets ? Skillink connecte les étudiants pour
+        transformer leurs idées en réalisations collectives.
+      </p>
+      <div class="flex flex-wrap gap-4">
+        <a href="../frontend/index.html" class="btn btn-primary btn-lg">Découvrir Skillink</a>
+        <a href="#fonctionnalites" class="btn btn-outline btn-lg">Explorer les fonctionnalités</a>
+      </div>
+      <div class="flex flex-wrap gap-3 mt-9">
+        <span class="badge badge-lg badge-ghost">Projets étudiants</span>
+        <span class="badge badge-lg badge-ghost">Compétences</span>
+        <span class="badge badge-lg badge-ghost">Collaboration</span>
+      </div>
+    </div>
+
+    <div class="showcase">
+      <div class="showcase-top">
+        <span class="window-dots"><i></i><i></i><i></i></span>
+        <span>Skillink / Explorer les projets</span>
+      </div>
+      <div class="showcase-content">
+        <div class="flex justify-between items-center mb-6">
+          <div>
+            <p class="text-sm text-base-content/60">Ton espace de collaboration</p>
+            <h2 class="text-2xl font-bold">Trouve ton prochain projet</h2>
+          </div>
+          <span class="badge badge-primary">Skillink</span>
+        </div>
+        <div class="mock-card">
+          <div class="flex justify-between gap-2">
+            <strong>Création d'un jeu vidéo</strong>
+            <span class="badge badge-success badge-outline">Ouvert</span>
+          </div>
+          <p>Recherche de talents créatifs pour construire un jeu.</p>
+          <div class="mock-tags"><span>Jeu vidéo</span><span>Collaboration</span></div>
+        </div>
+        <div class="mock-card">
+          <div class="flex justify-between gap-2">
+            <strong>Application web collaborative</strong>
+            <span class="badge badge-success badge-outline">Ouvert</span>
+          </div>
+          <p>Un projet numérique à développer en équipe.</p>
+          <div class="mock-tags"><span>Web</span><span>JavaScript</span></div>
+        </div>
+        <div class="mock-action">Découvrir les projets →</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="fonctionnalites" class="max-w-7xl mx-auto px-6 py-24">
+  <div class="text-center mb-14">
+    <span class="text-primary font-bold">LES FONCTIONNALITÉS</span>
+    <h2 class="text-4xl font-extrabold mt-3">Tout pour collaborer</h2>
+    <p class="text-base-content/60 mt-4">Des outils simples pour passer de l'idée au projet.</p>
+  </div>
+  <div class="grid md:grid-cols-3 gap-8">
+
+    <article class="card bg-base-200 shadow-sm">
+      <div class="card-body">
+        <span class="feature-number">01</span>
+        <div class="mini-interface">
+          <div class="mini-heading">Explorer les projets</div>
+          <div class="mini-line long"></div>
+          <div class="mini-line"></div>
+          <div class="mini-panel"><span>Projet web</span><b>Ouvert</b></div>
+          <div class="mini-panel"><span>Jeu vidéo</span><b>Ouvert</b></div>
+        </div>
+        <h3 class="card-title mt-5">Découvre des projets</h3>
+        <p>Explore les idées d'autres étudiants et trouve des projets adaptés à tes centres d'intérêt.</p>
+      </div>
+    </article>
+
+    <article class="card bg-base-200 shadow-sm">
+      <div class="card-body">
+        <span class="feature-number">02</span>
+        <div class="mini-interface">
+          <div class="mini-heading">Rejoindre un projet</div>
+          <div class="mini-line long"></div>
+          <div class="mini-line"></div>
+          <div class="mini-input">Bonjour, je souhaite participer...</div>
+          <div class="mini-submit">Envoyer ma candidature</div>
+        </div>
+        <h3 class="card-title mt-5">Rejoins une équipe</h3>
+        <p>Propose tes compétences, candidate aux projets et participe à des réalisations concrètes.</p>
+      </div>
+    </article>
+
+    <article class="card bg-base-200 shadow-sm">
+      <div class="card-body">
+        <span class="feature-number">03</span>
+        <div class="mini-interface">
+          <div class="mini-heading">Messagerie</div>
+          <div class="chat-bubble-preview left">Salut ! On travaille ensemble ?</div>
+          <div class="chat-bubble-preview right">Avec plaisir !</div>
+          <div class="mini-input">Écrire un message...</div>
+        </div>
+        <h3 class="card-title mt-5">Échange facilement</h3>
+        <p>Discute avec d'autres utilisateurs grâce à la messagerie intégrée de Skillink.</p>
+      </div>
+    </article>
+
+  </div>
+  
+</section>
+
+<section id="comment" class="bg-base-200 px-6 py-24">
+  <div class="max-w-6xl mx-auto">
+    <div class="text-center mb-14">
+      <span class="text-primary font-bold">SIMPLE ET ACCESSIBLE</span>
+      <h2 class="text-4xl font-extrabold mt-3">Comment ça marche ?</h2>
+    </div>
+    <div class="grid md:grid-cols-3 gap-8 text-center">
+      <div class="step-card">
+        <span>1</span>
+        <h3>Crée ton profil</h3>
+        <p>Présente tes compétences et ce que tu aimes faire.</p>
+      </div>
+      <div class="step-card">
+        <span>2</span>
+        <h3>Trouve un projet</h3>
+        <p>Explore les annonces ou publie ta propre idée.</p>
+      </div>
+      <div class="step-card">
+        <span>3</span>
+        <h3>Collabore</h3>
+        <p>Échange, candidate et construis quelque chose ensemble.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="apropos" class="max-w-5xl mx-auto px-6 py-24">
+  <span class="text-primary font-bold">L'HISTOIRE DU PROJET</span>
+  <h2 class="text-4xl font-extrabold mt-3 mb-8">Pourquoi j'ai créé Skillink</h2>
+  <div class="space-y-5 text-lg leading-relaxed text-base-content/75">
+    <p>Quand on est étudiant, on peut avoir une bonne idée sans forcément maîtriser toutes les compétences nécessaires pour la réaliser.</p>
+    <p>J'ai voulu créer une plateforme qui facilite la rencontre entre des personnes ayant des idées et d'autres ayant envie de mettre leurs talents en pratique.</p>
+    <p>Skillink est un projet personnel développé dans le cadre de mon Portfolio Project à Holberton School. Il m'a permis de travailler sur une application complète, de son interface jusqu'à sa base de données.</p>
+  </div>
+
+  <div class="card bg-base-200 shadow-sm mt-12">
+    <div class="card-body">
+      <h3 class="text-2xl font-bold">Derrière Skillink</h3>
+      <p class="font-semibold text-primary">Maxence — Développeur du projet</p>
+      <p>J'ai conçu Skillink en autonomie avec HTML, CSS, JavaScript, Tailwind, DaisyUI, Node.js, Express et MySQL.</p>
+      <div class="flex flex-wrap gap-3 mt-5">
+        <a href="https://github.com/maxence30/Portfolio-Project" target="_blank" rel="noopener noreferrer" class="btn btn-primary">Code source GitHub</a>
+        <a href="https://github.com/maxence30" target="_blank" rel="noopener noreferrer" class="btn btn-outline">Mon GitHub</a>
+        <a href="https://www.holbertonschool.fr/" target="_blank" rel="noopener noreferrer" class="btn btn-ghost">Holberton School</a>
+      </div>
+      
+    </div>
+  </div>
+</section>
+
+<section class="bg-primary text-primary-content text-center px-6 py-24">
+  <div class="max-w-3xl mx-auto">
+    <h2 class="text-4xl font-extrabold">Ton prochain projet commence ici.</h2>
+    <p class="text-lg mt-5 mb-9">Une idée, des compétences, une équipe. Ensemble, allons plus loin.</p>
+    <a href="../frontend/index.html" class="btn btn-neutral btn-lg">Ouvrir Skillink</a>
+    <p class="text-sm opacity-75 mt-5">Accès local de démonstration. L'application devra être déployée pour un accès public.</p>
+  </div>
+</section>
+</main>
+
+<footer class="footer footer-center bg-base-300 text-base-content p-9">
+  <p class="font-bold text-lg">Skillink.</p>
+  <p>© 2026 Skillink — Plateforme de collaboration étudiante.</p>
+  <a href="https://github.com/maxence30/Portfolio-Project" target="_blank" rel="noopener noreferrer" class="link link-hover">Voir le projet sur GitHub</a>
+</footer>
+
+</body>
+</html>
+
